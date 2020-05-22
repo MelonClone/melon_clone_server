@@ -1,0 +1,12 @@
+version: '2.4'
+services:
+    melon:
+        image: melon-server:0.1
+        networks:
+            - db
+        environment:
+            - TZ=Korea
+        ports:
+        - "5080:80"
+networks: 
+    db: 
