@@ -1,0 +1,18 @@
+server:
+  address: localhost
+  port: 8099
+
+spring:
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    # database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/melon_clone?serverTimezone=UTC&charaterEncoding=UTF-8
+    username: melon_admin
+    password: melonclone2020
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    platform: mysql
+    initialization-mode: always
