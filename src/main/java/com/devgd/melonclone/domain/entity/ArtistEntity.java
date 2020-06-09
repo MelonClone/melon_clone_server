@@ -1,6 +1,6 @@
 package com.devgd.melonclone.domain.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,12 +32,12 @@ public class ArtistEntity {
 	private String artist_desc;
 
 	@Column(nullable = false)
-	private Date create_date;
+	private LocalDateTime create_date;
 
 
 	@Builder
 	public ArtistEntity(Long artist_id, String artist_name, 
-			String artist_profile, String artist_desc, Date create_date) {
+			String artist_profile, String artist_desc, LocalDateTime create_date) {
 		this.artist_id = artist_id;
 		this.artist_name = artist_name;
 		this.artist_profile = artist_profile;

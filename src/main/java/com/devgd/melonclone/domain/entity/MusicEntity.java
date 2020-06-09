@@ -1,12 +1,11 @@
 package com.devgd.melonclone.domain.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -49,13 +48,13 @@ public class MusicEntity {
 	private Long music_playtime;
 
 	@Column(nullable = false)
-	private Date create_date;
+	private LocalDateTime create_date;
 
 	@Builder
 	public MusicEntity(Long music_id, Long music_artist_id, 
 			Long music_album_id, Long music_category_id, 
 			String music_name, Long music_like, Long music_playtime, 
-			Date create_date) {
+			LocalDateTime create_date) {
 		this.music_id = music_id;
 		this.music_artist_id = music_artist_id;
 		this.music_album_id = music_album_id;

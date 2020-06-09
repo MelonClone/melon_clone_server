@@ -16,16 +16,20 @@
 	@NoArgsConstructor
 	public class UserDto {
 		private Long id;
+		private String nickname;
 		private String email;
 		private String password;
-		private LocalDateTime createdDate;
-		private LocalDateTime modifiedDate;
+		private LocalDateTime createDate;
+		private LocalDateTime lastLogin;
 
 		public UserEntity toEntity(){
 			return UserEntity.builder()
 					.user_id(id)
+					.nickname(nickname)
 					.email(email)
 					.password(password)
+					.create_date(createDate)
+					.last_login(lastLogin)
 					.build();
 		}
 
