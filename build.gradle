@@ -27,6 +27,10 @@ dependencies {
 
 	implementation 'org.modelmapper:modelmapper:2.3.0'
 
+	implementation 'io.jsonwebtoken:jjwt-api:0.10.7'
+	runtime 'io.jsonwebtoken:jjwt-impl:0.10.7'
+	runtime 'io.jsonwebtoken:jjwt-jackson:0.10.7'
+
 	runtimeOnly 'mysql:mysql-connector-java'
 	compileOnly 'org.projectlombok:lombok:1.18.12'
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
