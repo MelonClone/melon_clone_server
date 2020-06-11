@@ -22,7 +22,7 @@ public class ArtistDto {
 	private String artistName;
 	private String artistProfile;
 	private String artistDesc;
-	private LocalDateTime createDate;
+	private LocalDateTime createDate = LocalDateTime.now();
 
 	public ArtistEntity toEntity(){
 		return ArtistEntity.builder()
@@ -30,7 +30,7 @@ public class ArtistDto {
 				.artistName(artistName)
 				.artistProfile(artistProfile)
 				.artistDesc(artistDesc)
-				.createDate(createDate != null ? createDate : LocalDateTime.now())
+				.createDate(createDate)
 				.build();
 	}
 
