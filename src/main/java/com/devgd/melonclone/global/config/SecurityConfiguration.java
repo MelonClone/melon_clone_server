@@ -2,6 +2,7 @@ package com.devgd.melonclone.global.config;
 
 import javax.servlet.Filter;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,8 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
-	// @Value("${jwt.secret}")
-	private String secret = "abc def";
+	@Value("${jwt.secret}")
+	private String secret;
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {

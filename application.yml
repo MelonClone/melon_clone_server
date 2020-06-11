@@ -19,3 +19,6 @@ spring:
 
   jackson:
     property-naming-strategy: SNAKE_CASE
+
+jwt:
+  secret: aaaaaaaaaaaaaaaaabbbbbbbbbbbbbcc # 32글자 이상의 비밀 키
