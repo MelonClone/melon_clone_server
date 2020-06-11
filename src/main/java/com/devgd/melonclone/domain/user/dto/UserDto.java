@@ -19,7 +19,7 @@ public class UserDto {
 	private String nickname;
 	private String email;
 	private String password;
-	private LocalDateTime createDate;
+	private LocalDateTime createDate = LocalDateTime.now();
 	private LocalDateTime lastLogin;
 
 	public UserEntity toEntity(){
