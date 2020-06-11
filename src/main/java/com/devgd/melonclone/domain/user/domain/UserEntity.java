@@ -1,5 +1,6 @@
 package com.devgd.melonclone.domain.user.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -9,13 +10,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.devgd.melonclone.domain.model.BaseEntity;
+
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Entity
 @Table(name = "user_table")
-public class UserEntity {
+public class UserEntity extends BaseEntity implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

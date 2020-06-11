@@ -1,5 +1,6 @@
 package com.devgd.melonclone.domain.album.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -10,13 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.devgd.melonclone.domain.model.BaseEntity;
+
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Entity
 @Table(name = "album_table")
-public class AlbumEntity {
+public class AlbumEntity extends BaseEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Long album_id;

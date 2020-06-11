@@ -1,5 +1,6 @@
 package com.devgd.melonclone.domain.artist.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -9,37 +10,44 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.devgd.melonclone.domain.model.BaseEntity;
+
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @Entity
 @Table(name = "artist_table")
-public class ArtistEntity {
+@ToString
+@NoArgsConstructor
+public class ArtistEntity extends BaseEntity implements Serializable {
 	@Id
+	@Column(name = "artist_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long artist_id;
+	private Long artistId;
 
-	@Column(length = 45, nullable = false)
-	private String artist_name;
+	@Column(name = "artist_name", length = 45, nullable = false)
+	private String artistName;
 
-	@Column(length = 255, nullable = true)
-	private String artist_profile;
+	@Column(name = "artist_profile", length = 255, nullable = true)
+	private String artistProfile;
 
-	@Column(nullable = true)
-	private String artist_desc;
+	@Column(name = "artist_desc", nullable = true)
+	private String artistDesc;
 
-	@Column(nullable = false)
-	private LocalDateTime create_date;
+	@Column(name = "create_date", nullable = false)
+	private LocalDateTime createDate;
 
 
 	@Builder
-	public ArtistEntity(Long artist_id, String artist_name, 
-			String artist_profile, String artist_desc, LocalDateTime create_date) {
-		this.artist_id = artist_id;
-		this.artist_name = artist_name;
-		this.artist_profile = artist_profile;
-		this.artist_desc = artist_desc;
-		this.create_date = create_date;
+	public ArtistEntity(Long artistId, String artistName, 
+			String artistProfile, String artistDesc, LocalDateTime createDate) {
+		this.artistId = artistId;
+		this.artistName = artistName;
+		this.artistProfile = artistProfile;
+		this.artistDesc = artistDesc;
+		this.createDate = createDate;
 	}
 }

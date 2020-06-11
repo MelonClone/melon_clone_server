@@ -9,6 +9,8 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import com.devgd.melonclone.domain.model.BaseEntity;
+
 import lombok.Builder;
 import lombok.Getter;
 
@@ -16,7 +18,7 @@ import lombok.Getter;
 @Entity
 @Embeddable
 @Table(name = "music_table")
-public class MusicEntity implements Serializable {
+public class MusicEntity extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = -390950220271593086L;
 
 	@EmbeddedId
