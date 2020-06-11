@@ -2,9 +2,11 @@ package com.devgd.melonclone.domain.user.api;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController(value = "/v1/user")
+@RestController("user")
+@RequestMapping("/v1/user")
 public class MelonUserController {
 	
 	@PostMapping(value = "/regist")

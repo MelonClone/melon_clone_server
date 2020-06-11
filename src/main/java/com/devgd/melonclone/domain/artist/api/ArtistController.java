@@ -4,20 +4,24 @@ import com.devgd.melonclone.domain.artist.application.ArtistService;
 import com.devgd.melonclone.domain.artist.dao.ArtistRepository;
 import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.jsonwebtoken.Claims;
 
-@RestController(value = "/v1/artist")
+@RestController("artist")
+@RequestMapping("/v1/artist")
 public class ArtistController {
 	
-	private ArtistService artistService;
+	@Autowired
+	ArtistService artistService;
 
 	@GetMapping(value = "/{artist_id}")
 	public ArtistDto getArtist(
@@ -66,8 +70,4 @@ public class ArtistController {
 		return "{\"coffee\":{\"name\":\"americano\"}}";
 	}
 	
-	@DeleteMapping(value = "/{artist_id}/album/{album_id}")
-	public String removeArtistAlbum() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
-	}
 }
