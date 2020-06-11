@@ -21,10 +21,7 @@ public class ProduceController {
 	ArtistService artistService;
 
 	@PostMapping(value = "/artist")
-	// public String addArtist(@RequestBody Map<String, Object> params) {
-	// 	String artistName = (String) params.get("artist_name");
 	public SuccessResponse addArtist(@RequestBody ArtistDto artistDto) {
-		System.out.println(artistDto.toEntity().toString());
 		Long artistId = artistService.addArtist(artistDto);
 		String resturnMsg = "Added artist " + artistDto.getArtistName() + 
 			" with ID " + artistId;
