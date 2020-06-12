@@ -15,13 +15,13 @@ import lombok.Getter;
 public class ArtistLikeId extends BaseEntity implements Serializable {
 	
 	@Column(name = "arl_artist_id", nullable = false)
-	private Long arlArtistId;
+	private Integer arlArtistId;
 	
 	@Column(name = "arl_user_id", nullable = false)
-	private Long arlUserId;
+	private Integer arlUserId;
 
 	@Builder
-	public ArtistLikeId(Long artistId, Long userId) {
+	public ArtistLikeId(Integer artistId, Integer userId) {
 		this.arlArtistId = artistId;
 		this.arlUserId = userId;
 	}

@@ -2,7 +2,9 @@ package com.devgd.melonclone.domain.user.dto;
 
 import java.time.LocalDateTime;
 
+import com.devgd.melonclone.domain.user.domain.AdminEntity;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
+import com.devgd.melonclone.global.config.Role;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -15,27 +17,29 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class UserDto {
-	private Long id;
+	private Integer userId;
 	private String nickname;
 	private String email;
 	private String password;
 	private LocalDateTime createDate = LocalDateTime.now();
 	private LocalDateTime lastLogin;
+	private Role role;
 
 	public UserEntity toEntity(){
 		return UserEntity.builder()
-				.user_id(id)
+				.userId(userId)
 				.nickname(nickname)
 				.email(email)
 				.password(password)
-				.create_date(createDate)
-				.last_login(lastLogin)
+				.createDate(createDate)
+				.lastLogin(lastLogin)
+				.admin(new AdminEntity(userId, role))
 				.build();
 	}
 
 	@Builder
-	public UserDto(Long id, String email, String password) {
-		this.id = id;
+	public UserDto(Integer userId, String email, String password) {
+		this.userId = userId;
 		this.email = email;
 		this.password = password;
 	}

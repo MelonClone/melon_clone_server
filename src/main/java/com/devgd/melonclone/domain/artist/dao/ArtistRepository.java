@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ArtistRepository extends JpaRepository<ArtistEntity, Long> {
-	Optional<ArtistEntity> findByArtistId(Long artistId);
+public interface ArtistRepository extends JpaRepository<ArtistEntity, Integer> {
+	Optional<ArtistEntity> findByArtistId(Integer artistId);
 	Optional<ArtistEntity> findByArtistName(String artistName);
 }

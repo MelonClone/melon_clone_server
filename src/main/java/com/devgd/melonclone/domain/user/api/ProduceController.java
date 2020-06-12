@@ -22,7 +22,7 @@ public class ProduceController {
 
 	@PostMapping(value = "/artist")
 	public SuccessResponse addArtist(@RequestBody ArtistDto artistDto) {
-		Long artistId = artistService.addArtist(artistDto);
+		Integer artistId = artistService.addArtist(artistDto);
 		String resturnMsg = "Added artist " + artistDto.getArtistName() + 
 			" with ID " + artistId;
 		return new SuccessResponse(resturnMsg);

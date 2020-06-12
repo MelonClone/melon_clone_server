@@ -25,18 +25,16 @@ public class ArtistController {
 
 	@GetMapping(value = "/{artist_id}")
 	public ArtistDto getArtist(
-		@PathVariable(name="artist_id") final Long artist_id
-	) {
+		@PathVariable(name="artist_id") final Integer artist_id) {
 		return artistService.getArtist(artist_id);
 	}
 
 	@PostMapping(value = "/{artist_id}/like")
 	public void like(
 		Authentication authentication,
-		@PathVariable(name="artist_id") final Long artist_id
-	) {
-        Claims claims = (Claims)authentication.getPrincipal();
-        Long user_id = claims.get("user_id", Long.class);
+		@PathVariable(name="artist_id") final Integer artist_id) {
+		Claims claims = (Claims)authentication.getPrincipal();
+		Integer user_id = claims.get("user_id", Integer.class);
 		artistService.addLike(artist_id, user_id);
 	}
 

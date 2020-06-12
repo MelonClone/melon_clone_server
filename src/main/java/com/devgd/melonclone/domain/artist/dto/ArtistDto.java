@@ -18,7 +18,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 public class ArtistDto {
-	private Long artistId;
+	private Integer artistId;
 	private String artistName;
 	private String artistProfile;
 	private String artistDesc;
@@ -35,7 +35,7 @@ public class ArtistDto {
 	}
 
 	@Builder
-	public ArtistDto(Long artistId, String artistName, String artistProfile, String artistDesc, LocalDateTime createDate) {
+	public ArtistDto(Integer artistId, String artistName, String artistProfile, String artistDesc, LocalDateTime createDate) {
 		this.artistId = artistId;
 		this.artistName = artistName;
 		this.artistProfile = artistProfile;

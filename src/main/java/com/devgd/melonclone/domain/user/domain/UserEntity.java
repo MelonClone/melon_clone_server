@@ -8,49 +8,54 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
 @Table(name = "user_table")
+@NoArgsConstructor
 public class UserEntity extends BaseEntity implements Serializable {
 	
 	@Id
+	@Column(name = "user_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long user_id;
+	private Integer userId;
 
-	@Column(length = 45, nullable = false)
+	@Column(name = "email", length = 45, nullable = false)
 	private String email;
 
-	@Column(length = 45, nullable = false)
+	@Column(name = "nickname", length = 45, nullable = false)
 	private String nickname;
 
-	@Column(length = 255, nullable = false)
+	@Column(name = "password", length = 255, nullable = false)
 	private String password;
 
-	@Column(length = 255, nullable = false)
-	private String salt;
+	@Column(name = "create_date", nullable = false)
+	private LocalDateTime createDate;
 
-	@Column(nullable = false)
-	private LocalDateTime create_date;
+	@Column(name = "last_login", nullable = true)
+	private LocalDateTime lastLogin;
 
-	@Column(nullable = true)
-	private LocalDateTime last_login;
+	@ManyToOne
+	@JoinColumn(name ="admin_user_id", referencedColumnName = "admin_user_id")
+	private AdminEntity admin;
 
 	@Builder
-	public UserEntity(Long user_id, String email, String nickname,
-			String password, String salt, LocalDateTime create_date, LocalDateTime last_login) {
-		this.user_id = user_id;
+	public UserEntity(Integer userId, String email, String nickname,
+			String password, LocalDateTime createDate, LocalDateTime lastLogin, AdminEntity admin) {
+		this.userId = userId;
 		this.email = email;
 		this.nickname = nickname;
 		this.password = password;
-		this.salt = salt;
-		this.create_date = create_date;
-		this.last_login = last_login;
+		this.createDate = createDate;
+		this.lastLogin = lastLogin;
 	}
 }

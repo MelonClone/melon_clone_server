@@ -26,7 +26,7 @@ public class ArtistEntity extends BaseEntity implements Serializable {
 	@Id
 	@Column(name = "artist_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long artistId;
+	private Integer artistId;
 
 	@Column(name = "artist_name", length = 45, nullable = false)
 	private String artistName;
@@ -42,7 +42,7 @@ public class ArtistEntity extends BaseEntity implements Serializable {
 
 
 	@Builder
-	public ArtistEntity(Long artistId, String artistName, 
+	public ArtistEntity(Integer artistId, String artistName, 
 			String artistProfile, String artistDesc, LocalDateTime createDate) {
 		this.artistId = artistId;
 		this.artistName = artistName;

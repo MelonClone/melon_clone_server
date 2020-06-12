@@ -28,17 +28,17 @@ public class MusicEntity extends BaseEntity implements Serializable {
 	private String music_name;
 
 	@Column(nullable = false)
-	private Long music_like;
+	private Integer music_like;
 
 	@Column(nullable = false)
-	private Long music_playtime;
+	private Integer music_playtime;
 
 	@Column(nullable = false)
 	private LocalDateTime create_date;
 
 	@Builder
 	public MusicEntity(MusicId id, 
-			String music_name, Long music_like, Long music_playtime, 
+			String music_name, Integer music_like, Integer music_playtime, 
 			LocalDateTime create_date) {
 		this.id = id;
 		this.music_name = music_name;

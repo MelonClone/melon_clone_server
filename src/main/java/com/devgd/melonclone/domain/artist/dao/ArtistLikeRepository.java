@@ -11,16 +11,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ArtistLikeRepository extends JpaRepository<ArtistLikeEntity, Long> {
-	List<ArtistLikeEntity> findByArlIdArlArtistId(Long artistId);
-	List<ArtistLikeEntity> findByArlIdArlUserId(Long userId);
-	Optional<ArtistLikeEntity> findByArlIdArlArtistIdAndArlIdArlUserId(Long artistId, Long userId);
+public interface ArtistLikeRepository extends JpaRepository<ArtistLikeEntity, Integer> {
+	List<ArtistLikeEntity> findByArlIdArlArtistId(Integer artistId);
+	List<ArtistLikeEntity> findByArlIdArlUserId(Integer userId);
+	Optional<ArtistLikeEntity> findByArlIdArlArtistIdAndArlIdArlUserId(Integer artistId, Integer userId);
 
 	@Query("SELECT alt "+
 		"FROM ArtistLikeEntity alt "+
 		"WHERE alt.arlId.arlArtistId = :artist_id "+
 		"AND alt.arlId.arlUserId = :user_id")
 	Optional<ArtistLikeEntity> findById(
-		@Param("artist_id") Long artistId, 
-		@Param("user_id") Long userId);
+		@Param("artist_id") Integer artistId, 
+		@Param("user_id") Integer userId);
 }

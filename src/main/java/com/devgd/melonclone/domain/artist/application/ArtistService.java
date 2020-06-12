@@ -23,11 +23,11 @@ public class ArtistService {
 	private final ArtistRepository artistRepository;
 	private final ArtistLikeRepository artistLikeRepository;
 
-	public Long addArtist(ArtistDto artistDto) {
+	public Integer addArtist(ArtistDto artistDto) {
 		return artistRepository.save(artistDto.toEntity()).getArtistId();
 	}
 
-	public ArtistDto getArtist(Long artistId) {
+	public ArtistDto getArtist(Integer artistId) {
 		final Optional<ArtistEntity> artist = artistRepository.findById(artistId);
 		artist.orElseThrow(() -> new ArtistNotFoundException(artistId+""));
 		ModelMapper modelMapper = new ModelMapper();
@@ -39,12 +39,12 @@ public class ArtistService {
 		return true;
 	}
 	
-	public boolean removeArtistById(Long artistId) {
+	public boolean removeArtistById(Integer artistId) {
 		artistRepository.deleteById(artistId);
 		return true;
 	}
 
-	public void addLike(Long artistId, Long userId) {
+	public void addLike(Integer artistId, Integer userId) {
 		if (artistLikeRepository.findByArlIdArlArtistIdAndArlIdArlUserId(artistId, userId) == null) {
 			artistLikeRepository.save(new ArtistLikeEntity(new ArtistLikeId(artistId, userId)));
 		}
