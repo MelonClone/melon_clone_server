@@ -1,7 +1,6 @@
 package com.devgd.melonclone.domain.artist.api;
 
 import com.devgd.melonclone.domain.artist.application.ArtistService;
-import com.devgd.melonclone.domain.artist.dao.ArtistRepository;
 import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 
 import org.springframework.beans.factory.annotation.Autowired;

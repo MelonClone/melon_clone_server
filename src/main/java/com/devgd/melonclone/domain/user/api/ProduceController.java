@@ -1,7 +1,5 @@
 package com.devgd.melonclone.domain.user.api;
 
-import java.util.Map;
-
 import com.devgd.melonclone.domain.artist.application.ArtistService;
 import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 import com.devgd.melonclone.global.common.response.SuccessResponse;
