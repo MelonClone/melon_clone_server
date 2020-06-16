@@ -1,16 +1,12 @@
 package com.devgd.melonclone.global.config;
 
-import javax.servlet.Filter;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -35,21 +31,26 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	*/
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-			.antMatchers("/admin/**").hasRole(Role.ADMIN.name())
-			.antMatchers("/produce/**").hasRole(Role.ADMIN.name())
-			.antMatchers("/v1/artist/**").hasRole(Role.MEMBER.name())
-			.antMatchers("/playlist/**").hasRole(Role.MEMBER.name())
-			.antMatchers("/album/**").hasRole(Role.MEMBER.name())
-			.antMatchers("/music/**").hasRole(Role.MEMBER.name())
-			.antMatchers("/search/**").permitAll()	
-			.antMatchers("/user/**").permitAll()
-			// .anyRequest().authenticated()
-		.and().formLogin().disable()
-			.cors().disable()
-			.csrf().disable()
-		.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
-		
+		http.cors().and().csrf().disable()
+			.sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and()
+			.authorizeRequests()
+				.antMatchers("/admin/{\\d+}/**",
+							"/v1/produce/{\\d+}/**")
+							.hasRole(Role.ADMIN.name())
+				.antMatchers("/v1/artist/{\\d+}/**",
+							"/v1/playlist/{\\d+}/**",
+							"/v1/album/{\\d+}/**",
+							"/v1/music/{\\d+}/**")
+							.hasRole(Role.MEMBER.name())
+				.antMatchers("/v1/search/{\\d+}/**",
+							"/v1/user/{\\d+}/**")
+							.permitAll()
+				.anyRequest().authenticated().and()
+			.formLogin().disable()
+			.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+			;
 	}
 
 	// @Override
