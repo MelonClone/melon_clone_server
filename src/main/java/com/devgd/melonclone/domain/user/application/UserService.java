@@ -1,22 +1,10 @@
 package com.devgd.melonclone.domain.user.application;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.devgd.melonclone.domain.user.dao.UserDao;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
 import com.devgd.melonclone.domain.user.dto.UserDto;
-import com.devgd.melonclone.domain.user.exception.UserNotFoundException;
 import com.devgd.melonclone.domain.user.exception.UserVerifyException;
-import com.devgd.melonclone.global.config.Role;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,39 +31,14 @@ public class UserService {
 		if (!passwordEncoder.matches(password, user.getPassword())) {
 			throw new UserVerifyException();
 		}
-
-		ModelMapper modelMapper = new ModelMapper();
-		UserDto userDto = modelMapper.map(user, UserDto.class);
-		Role userRole = user.getAdmin() != null ? user.getAdmin().getAdminRole() : Role.MEMBER;
-		userDto.setRole(userRole);
-		return userDto;
+		return user.toDto();
 	}
 
-	public UserDetails getUserByUsername(String userEmail) {
-		UserEntity user = userDao.findByEmail(userEmail);
-
-		List<GrantedAuthority> authorities = new ArrayList<>();
-
-		if (("admin@example.com").equals(userEmail)) {
-			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-		} else {
-			authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-		}
-
-		return new User(user.getEmail(), user.getPassword(), authorities);
+	public UserDto getUserByUsername(String userEmail) {
+		return userDao.findByEmail(userEmail).toDto();
 	}
 
-	public UserDetails getUserById(Integer userId) {
-		UserEntity user = userDao.findById(userId);
-
-		List<GrantedAuthority> authorities = new ArrayList<>();
-
-		if (user.getAdmin().getAdminRole() == Role.ADMIN) {
-			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-		} else {
-			authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
-		}
-
-		return new User(user.getEmail(), user.getPassword(), authorities);
+	public UserDto getUserById(Integer userId) {
+		return userDao.findById(userId).toDto();
 	}
 }

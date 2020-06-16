@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
+import com.devgd.melonclone.domain.music.dto.MusicDto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import lombok.Getter;
 @Entity
 @Embeddable
 @Table(name = "music_table")
-public class MusicEntity extends BaseEntity implements Serializable {
+public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
 	private static final long serialVersionUID = -390950220271593086L;
 
 	@EmbeddedId
@@ -45,5 +46,11 @@ public class MusicEntity extends BaseEntity implements Serializable {
 		this.music_like = music_like;
 		this.music_playtime = music_playtime;
 		this.create_date = create_date;
+	}
+
+	@Override
+	public MusicDto toDto() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

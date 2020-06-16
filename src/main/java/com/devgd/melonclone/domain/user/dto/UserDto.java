@@ -2,6 +2,7 @@ package com.devgd.melonclone.domain.user.dto;
 
 import java.time.LocalDateTime;
 
+import com.devgd.melonclone.domain.model.BaseDto;
 import com.devgd.melonclone.domain.user.domain.AdminEntity;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
 import com.devgd.melonclone.global.config.Role;
@@ -16,7 +17,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class UserDto {
+public class UserDto implements BaseDto<UserEntity> {
 	private Integer userId;
 	private String nickname;
 	private String email;
@@ -25,6 +26,7 @@ public class UserDto {
 	private LocalDateTime lastLogin;
 	private Role role;
 
+	@Override
 	public UserEntity toEntity(){
 		return UserEntity.builder()
 				.userId(userId)

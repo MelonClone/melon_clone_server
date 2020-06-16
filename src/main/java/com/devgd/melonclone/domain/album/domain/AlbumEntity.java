@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.devgd.melonclone.domain.album.dto.AlbumDto;
 import com.devgd.melonclone.domain.model.BaseEntity;
 
 import lombok.Builder;
@@ -19,7 +20,7 @@ import lombok.Getter;
 @Getter
 @Entity
 @Table(name = "album_table")
-public class AlbumEntity extends BaseEntity implements Serializable {
+public class AlbumEntity implements Serializable, BaseEntity<AlbumDto> {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer album_id;
@@ -53,5 +54,11 @@ public class AlbumEntity extends BaseEntity implements Serializable {
 		this.album_jacket = album_jacket;
 		this.album_category = album_category;
 		this.create_date = create_date;
+	}
+
+	@Override
+	public AlbumDto toDto() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

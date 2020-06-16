@@ -1,26 +1,28 @@
 package com.devgd.melonclone.global.config;
 
-import java.io.UnsupportedEncodingException;
 import java.security.Key;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import com.devgd.melonclone.domain.user.application.UserService;
+import com.devgd.melonclone.domain.user.dto.UserDto;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -66,8 +68,25 @@ public class JwtTokenProvider {
 
 	// JWT 토큰에서 인증 정보 조회
 	public Authentication getAuthentication(String token) {
-		UserDetails userDetails = userService.getUserById(Integer.valueOf(this.getUserId(token)));
+		UserDto userDto = userService.getUserById(Integer.valueOf(this.getUserId(token)));
+		UserDetails userDetails = parseUserDetail(userDto);
+
 		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+	}
+
+	private UserDetails parseUserDetail(UserDto userDto) { 
+		List<GrantedAuthority> authorities = new ArrayList<>();
+
+		System.out.println("user : "+userDto.toString());
+		if (userDto != null && userDto.getRole() == Role.ADMIN) {
+			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+		} else if (userDto != null && userDto.getUserId() != null) {
+			authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
+		} else {
+
+		}
+
+		return new User(userDto.getEmail(), userDto.getPassword(), authorities);
 	}
 
 	public JwtParser getJwtParser() {

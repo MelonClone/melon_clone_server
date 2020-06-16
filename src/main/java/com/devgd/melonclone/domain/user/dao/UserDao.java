@@ -30,7 +30,7 @@ public class UserDao {
 	}
 
 	public UserEntity findById(Integer userId) {
-		final Optional<UserEntity> user = userRepository.findById(userId);
+		final Optional<UserEntity> user = userRepository.findByUserId(userId);
 		user.orElseThrow(() -> new UserNotFoundException(userId+""));
 
 		return user.get();

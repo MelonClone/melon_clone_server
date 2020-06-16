@@ -1,11 +1,9 @@
 package com.devgd.melonclone.domain.artist.dto;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
 import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
+import com.devgd.melonclone.domain.model.BaseDto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -17,13 +15,14 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class ArtistDto {
+public class ArtistDto implements BaseDto<ArtistEntity> {
 	private Integer artistId;
 	private String artistName;
 	private String artistProfile;
 	private String artistDesc;
 	private LocalDateTime createDate = LocalDateTime.now();
 
+	@Override
 	public ArtistEntity toEntity(){
 		return ArtistEntity.builder()
 				.artistId(artistId)

@@ -10,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 import com.devgd.melonclone.domain.model.BaseEntity;
+
+import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +25,7 @@ import lombok.ToString;
 @Table(name = "artist_table")
 @ToString
 @NoArgsConstructor
-public class ArtistEntity extends BaseEntity implements Serializable {
+public class ArtistEntity implements Serializable, BaseEntity<ArtistDto> {
 	@Id
 	@Column(name = "artist_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -49,5 +52,11 @@ public class ArtistEntity extends BaseEntity implements Serializable {
 		this.artistProfile = artistProfile;
 		this.artistDesc = artistDesc;
 		this.createDate = createDate;
+	}
+
+	@Override
+	public ArtistDto toDto() {
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper.map(this, ArtistDto.class);
 	}
 }

@@ -8,11 +8,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.devgd.melonclone.domain.model.BaseEntity;
 import com.devgd.melonclone.global.config.Role;
 
 import lombok.Builder;
@@ -21,7 +19,7 @@ import lombok.Getter;
 @Getter
 @Entity
 @Table(name = "admin_table")
-public class AdminEntity extends BaseEntity implements Serializable {
+public class AdminEntity implements Serializable {
 	
 	@Id
 	@Column(name = "admin_user_id")

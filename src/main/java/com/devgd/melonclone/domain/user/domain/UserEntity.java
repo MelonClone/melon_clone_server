@@ -13,6 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
+import com.devgd.melonclone.domain.user.dto.UserDto;
+import com.devgd.melonclone.global.config.Role;
+
+import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -22,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "user_table")
 @NoArgsConstructor
-public class UserEntity extends BaseEntity implements Serializable {
+public class UserEntity implements Serializable, BaseEntity<UserDto> {
 	
 	@Id
 	@Column(name = "user_id")
@@ -57,5 +61,15 @@ public class UserEntity extends BaseEntity implements Serializable {
 		this.password = password;
 		this.createDate = createDate;
 		this.lastLogin = lastLogin;
+	}
+
+	@Override
+	public UserDto toDto() {
+		ModelMapper modelMapper = new ModelMapper();
+		UserDto userDto = modelMapper.map(this, UserDto.class);
+		Role userRole = this.admin != null ? this.admin.getAdminRole() : Role.MEMBER;
+		userDto.setRole(userRole);
+
+		return userDto;
 	}
 }

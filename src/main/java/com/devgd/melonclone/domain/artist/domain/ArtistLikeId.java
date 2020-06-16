@@ -5,14 +5,12 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import com.devgd.melonclone.domain.model.BaseEntity;
-
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
 @Embeddable
-public class ArtistLikeId extends BaseEntity implements Serializable {
+public class ArtistLikeId implements Serializable {
 	
 	@Column(name = "arl_artist_id", nullable = false)
 	private Integer arlArtistId;
