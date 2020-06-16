@@ -17,6 +17,7 @@ import lombok.ToString;
 @NoArgsConstructor
 public class ArtistDto implements BaseDto<ArtistEntity> {
 	private Integer artistId;
+	private Integer artistUserId;
 	private String artistName;
 	private String artistProfile;
 	private String artistDesc;
@@ -34,8 +35,9 @@ public class ArtistDto implements BaseDto<ArtistEntity> {
 	}
 
 	@Builder
-	public ArtistDto(Integer artistId, String artistName, String artistProfile, String artistDesc, LocalDateTime createDate) {
+	public ArtistDto(Integer artistId, Integer artistUserId, String artistName, String artistProfile, String artistDesc, LocalDateTime createDate) {
 		this.artistId = artistId;
+		this.artistUserId = artistUserId;
 		this.artistName = artistName;
 		this.artistProfile = artistProfile;
 		this.artistDesc = artistDesc;

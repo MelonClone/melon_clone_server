@@ -30,6 +30,11 @@ public class ArtistDao {
 		return artist.get();
 	}
 
+	public boolean updateArtist(ArtistDto artistDto) {
+		artistRepository.save(artistDto.toEntity());
+		return true;
+	}
+
 	public boolean removeArtist(ArtistDto artistDto) {
 		artistRepository.delete(artistDto.toEntity());
 		return true;

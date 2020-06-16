@@ -8,10 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 import com.devgd.melonclone.domain.model.BaseEntity;
+import com.devgd.melonclone.domain.user.domain.UserEntity;
 
 import org.modelmapper.ModelMapper;
 
@@ -30,7 +33,7 @@ public class ArtistEntity implements Serializable, BaseEntity<ArtistDto> {
 	@Column(name = "artist_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private Integer artistId;
-
+	
 	@Column(name = "artist_name", length = 45, nullable = false)
 	private String artistName;
 
@@ -42,16 +45,20 @@ public class ArtistEntity implements Serializable, BaseEntity<ArtistDto> {
 
 	@Column(name = "create_date", nullable = false)
 	private LocalDateTime createDate;
-
+	
+	@OneToOne
+	@JoinColumn(name ="artist_user_id", referencedColumnName = "user_id")
+	private UserEntity artistUser;
 
 	@Builder
 	public ArtistEntity(Integer artistId, String artistName, 
-			String artistProfile, String artistDesc, LocalDateTime createDate) {
+			String artistProfile, String artistDesc, LocalDateTime createDate, UserEntity artistUser) {
 		this.artistId = artistId;
 		this.artistName = artistName;
 		this.artistProfile = artistProfile;
 		this.artistDesc = artistDesc;
 		this.createDate = createDate;
+		this.artistUser = artistUser;
 	}
 
 	@Override

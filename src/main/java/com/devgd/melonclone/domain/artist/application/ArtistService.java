@@ -2,6 +2,7 @@ package com.devgd.melonclone.domain.artist.application;
 
 import com.devgd.melonclone.domain.artist.dao.ArtistDao;
 import com.devgd.melonclone.domain.artist.dto.ArtistDto;
+import com.devgd.melonclone.domain.artist.exception.ArtistPermissionException;
 
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,11 @@ public class ArtistService {
 
 	public ArtistDto getArtist(Integer artistId) {
 		return artistDao.getArtist(artistId).toDto();
+	}
+
+	public boolean updateArtist(Integer userId, ArtistDto artistDto) {
+		if (userId != artistDto.getArtistId()) throw new ArtistPermissionException();
+		return artistDao.updateArtist(artistDto);
 	}
 
 	public boolean removeArtist(ArtistDto artistDto) {

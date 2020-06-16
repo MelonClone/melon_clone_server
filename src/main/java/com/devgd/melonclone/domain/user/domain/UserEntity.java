@@ -3,18 +3,19 @@ package com.devgd.melonclone.domain.user.domain;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.model.BaseEntity;
+import com.devgd.melonclone.domain.model.Role;
 import com.devgd.melonclone.domain.user.dto.UserDto;
-import com.devgd.melonclone.global.config.Role;
 
 import org.modelmapper.ModelMapper;
 
@@ -48,26 +49,30 @@ public class UserEntity implements Serializable, BaseEntity<UserDto> {
 	@Column(name = "last_login", nullable = true)
 	private LocalDateTime lastLogin;
 
-	@ManyToOne
-	@JoinColumn(name ="admin_user_id", referencedColumnName = "admin_user_id")
-	private AdminEntity admin;
+	@OneToOne(mappedBy = "roleUser", cascade = CascadeType.ALL)
+	private RoleEntity role;
+
+	@OneToOne(mappedBy = "artistUser", cascade = CascadeType.ALL)
+	private ArtistEntity artist;
 
 	@Builder
 	public UserEntity(Integer userId, String email, String nickname,
-			String password, LocalDateTime createDate, LocalDateTime lastLogin, AdminEntity admin) {
+			String password, LocalDateTime createDate, LocalDateTime lastLogin, RoleEntity role, ArtistEntity artist) {
 		this.userId = userId;
 		this.email = email;
 		this.nickname = nickname;
 		this.password = password;
 		this.createDate = createDate;
 		this.lastLogin = lastLogin;
+		this.role = role;
+		this.artist = artist;
 	}
 
 	@Override
 	public UserDto toDto() {
 		ModelMapper modelMapper = new ModelMapper();
 		UserDto userDto = modelMapper.map(this, UserDto.class);
-		Role userRole = this.admin != null ? this.admin.getAdminRole() : Role.MEMBER;
+		Role userRole = this.role != null ? Role.valueOf(this.role.getRoleName()) : Role.MEMBER;
 		userDto.setRole(userRole);
 
 		return userDto;

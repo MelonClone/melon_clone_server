@@ -47,7 +47,7 @@ public class MelonUserController {
 		return accessToken;
 	}
 
-	@DeleteMapping(value = "/login")
+	@DeleteMapping(value = "/logout")
 	public String userLogout() {
 		return "{\"coffee\":{\"name\":\"americano\"}}";
 	}

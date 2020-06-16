@@ -1,5 +1,7 @@
 package com.devgd.melonclone.global.config;
 
+import com.devgd.melonclone.domain.model.Role;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -39,11 +41,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/{\\d+}/**",
 							"/v1/produce/{\\d+}/**")
 							.hasRole(Role.ADMIN.name())
+				.antMatchers("/artist_manage/{\\d+}/**")
+							.hasAnyRole(Role.ARTIST.name(), Role.ADMIN.name())
 				.antMatchers("/v1/artist/{\\d+}/**",
 							"/v1/playlist/{\\d+}/**",
 							"/v1/album/{\\d+}/**",
 							"/v1/music/{\\d+}/**")
-							.hasRole(Role.MEMBER.name())
+							.hasAnyRole(Role.MEMBER.name(), Role.ARTIST.name(), Role.ADMIN.name())
 				.antMatchers("/v1/search/{\\d+}/**",
 							"/v1/user/{\\d+}/**")
 							.permitAll()

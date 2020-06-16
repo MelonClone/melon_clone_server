@@ -3,9 +3,10 @@ package com.devgd.melonclone.domain.user.dto;
 import java.time.LocalDateTime;
 
 import com.devgd.melonclone.domain.model.BaseDto;
-import com.devgd.melonclone.domain.user.domain.AdminEntity;
+import com.devgd.melonclone.domain.model.Role;
+import com.devgd.melonclone.domain.user.domain.RoleEntity;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
-import com.devgd.melonclone.global.config.Role;
+import com.devgd.melonclone.domain.user.domain.UserEntity.UserEntityBuilder;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -28,15 +29,21 @@ public class UserDto implements BaseDto<UserEntity> {
 
 	@Override
 	public UserEntity toEntity(){
-		return UserEntity.builder()
+		UserEntityBuilder userEntityBuilder = UserEntity.builder()
 				.userId(userId)
 				.nickname(nickname)
 				.email(email)
 				.password(password)
 				.createDate(createDate)
-				.lastLogin(lastLogin)
-				.admin(new AdminEntity(userId, role))
-				.build();
+				.lastLogin(lastLogin);
+
+		if (role != null) {
+			RoleEntity roleEntity = new RoleEntity();
+			roleEntity.setRoleUserId(userId);
+			roleEntity.setRoleName(role.getValue());
+			userEntityBuilder.role(roleEntity);
+		}
+		return userEntityBuilder.build();
 	}
 
 	@Builder

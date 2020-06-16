@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
+import com.devgd.melonclone.domain.model.Role;
 import com.devgd.melonclone.domain.user.application.UserService;
 import com.devgd.melonclone.domain.user.dto.UserDto;
 
@@ -71,13 +72,12 @@ public class JwtTokenProvider {
 		UserDto userDto = userService.getUserById(Integer.valueOf(this.getUserId(token)));
 		UserDetails userDetails = parseUserDetail(userDto);
 
-		return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+		return new UsernamePasswordAuthenticationToken(userDto, "", userDetails.getAuthorities());
 	}
 
 	private UserDetails parseUserDetail(UserDto userDto) { 
 		List<GrantedAuthority> authorities = new ArrayList<>();
 
-		System.out.println("user : "+userDto.toString());
 		if (userDto != null && userDto.getRole() == Role.ADMIN) {
 			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
 		} else if (userDto != null && userDto.getUserId() != null) {
