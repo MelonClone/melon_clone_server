@@ -34,4 +34,12 @@ public class AlbumDao {
 		return albumRepository.findByAlbumIdAndAlbumArtist(albumId, artistEntity)
 			.orElseThrow(() -> new AlbumNotFoundException(albumId+""));
 	}
+
+	public void removeAlbum(Integer albumId) {
+		albumRepository.deleteById(albumId);
+	}
+
+	public void removeAlbum(AlbumEntity albumEntity) {
+		albumRepository.delete(albumEntity);
+	}
 }

@@ -5,7 +5,6 @@ import java.util.Optional;
 import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.artist.domain.ArtistLikeEntity;
 import com.devgd.melonclone.domain.artist.domain.ArtistLikeId;
-import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 import com.devgd.melonclone.domain.artist.exception.ArtistNotFoundException;
 import com.devgd.melonclone.domain.user.dao.UserRepository;
 
