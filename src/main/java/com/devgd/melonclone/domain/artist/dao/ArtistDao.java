@@ -7,6 +7,7 @@ import com.devgd.melonclone.domain.artist.domain.ArtistLikeEntity;
 import com.devgd.melonclone.domain.artist.domain.ArtistLikeId;
 import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 import com.devgd.melonclone.domain.artist.exception.ArtistNotFoundException;
+import com.devgd.melonclone.domain.user.dao.UserRepository;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +20,10 @@ import lombok.RequiredArgsConstructor;
 public class ArtistDao {
 	private final ArtistRepository artistRepository;
 	private final ArtistLikeRepository artistLikeRepository;
+	private final UserRepository userRepository;
 
-	public Integer save(ArtistDto artistDto) {
-		return artistRepository.save(artistDto.toEntity()).getArtistId();
+	public Integer save(ArtistEntity artistEntity) {
+		return artistRepository.save(artistEntity).getArtistId();
 	}
 
 	public ArtistEntity getArtist(Integer artistId) {
@@ -30,13 +32,25 @@ public class ArtistDao {
 		return artist.get();
 	}
 
-	public boolean updateArtist(ArtistDto artistDto) {
-		artistRepository.save(artistDto.toEntity());
+	public ArtistEntity getArtistByUserId(Integer userId) {
+		final Optional<ArtistEntity> artist = artistRepository.findByArtistUser(userRepository.findByUserId(userId).get());
+		artist.orElseThrow(() -> new ArtistNotFoundException("User Id "+ userId));
+		return artist.get();
+	}
+
+	public ArtistEntity getArtistWithUserId(Integer artistId, Integer userId) {
+		final Optional<ArtistEntity> artist = artistRepository.findByArtistIdAndArtistUser(artistId, userRepository.findByUserId(userId).get());
+		artist.orElseThrow(() -> new ArtistNotFoundException(artistId+""));
+		return artist.get();
+	}
+
+	public boolean updateArtist(ArtistEntity artistEntity) {
+		artistRepository.save(artistEntity);
 		return true;
 	}
 
-	public boolean removeArtist(ArtistDto artistDto) {
-		artistRepository.delete(artistDto.toEntity());
+	public boolean removeArtist(ArtistEntity artistEntity) {
+		artistRepository.delete(artistEntity);
 		return true;
 	}
 

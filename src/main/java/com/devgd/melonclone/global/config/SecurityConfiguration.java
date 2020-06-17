@@ -4,6 +4,7 @@ import com.devgd.melonclone.domain.model.Role;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,7 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private final JwtTokenProvider jwtTokenProvider;
-	
+
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		//Allow access to all static resources without authentication
@@ -41,7 +42,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin/{\\d+}/**",
 							"/v1/produce/{\\d+}/**")
 							.hasRole(Role.ADMIN.name())
-				.antMatchers("/artist_manage/{\\d+}/**")
+				.antMatchers("/v1/artist_manage/{\\d+}/**")
+							.hasAnyRole(Role.ARTIST.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.POST, "/v1/album/**")
+							.hasAnyRole(Role.ARTIST.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.PUT, "/v1/album/**")
+							.hasAnyRole(Role.ARTIST.name(), Role.ADMIN.name())
+				.antMatchers(HttpMethod.DELETE, "/v1/album/**")
 							.hasAnyRole(Role.ARTIST.name(), Role.ADMIN.name())
 				.antMatchers("/v1/artist/{\\d+}/**",
 							"/v1/playlist/{\\d+}/**",

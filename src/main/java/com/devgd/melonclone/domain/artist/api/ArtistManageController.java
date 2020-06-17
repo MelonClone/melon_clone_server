@@ -2,6 +2,7 @@ package com.devgd.melonclone.domain.artist.api;
 
 import java.util.Map;
 
+import com.devgd.melonclone.domain.album.application.AlbumService;
 import com.devgd.melonclone.domain.artist.application.ArtistService;
 import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 import com.devgd.melonclone.domain.user.dto.UserDto;
@@ -27,6 +28,9 @@ public class ArtistManageController {
 	@Autowired
 	ArtistService artistService;
 
+	@Autowired
+	AlbumService albumService;
+
 	@PutMapping(value = "/{artist_id}")
 	public SuccessResponse changeArtist(
 		Authentication authentication,
@@ -38,11 +42,6 @@ public class ArtistManageController {
 		artistService.updateArtist(userDto.getUserId(), artistDto);
 
 		return new SuccessResponse("success");
-	}
-
-	@PostMapping(value = "/{artist_id}/album")
-	public String addArtistAlbum() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
 	}
 
 	@DeleteMapping(value = "/{artist_id}/album/{album_id}")

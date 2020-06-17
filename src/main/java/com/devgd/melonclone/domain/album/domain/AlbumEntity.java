@@ -8,56 +8,67 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.album.dto.AlbumDto;
+import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.model.BaseEntity;
+
+import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
 @Getter
 @Entity
 @Table(name = "album_table")
+@NoArgsConstructor
 public class AlbumEntity implements Serializable, BaseEntity<AlbumDto> {
 	@Id
+	@Column(name = "album_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Integer album_id;
+	private Integer albumId;
 
-	@Column(nullable = false)
-	private Integer album_artist_id;
+	@Column(name = "album_name", length = 45, nullable = false)
+	private String albumName;
 
-	@Column(length = 45, nullable = false)
-	private String album_name;
+	@Column(name = "album_like", nullable = false)
+	private Integer albumLike = 0;
 
-	@Column(nullable = false)
-	private Integer album_like;
+	@Column(name = "album_jacket", length = 255, nullable = false)
+	private String albumJacket = "http://defualt.img";
 
-	@Column(length = 255, nullable = false)
-	private String album_jacket;
+	@Column(name = "album_category_id", nullable = false)
+	private Integer albumCategoryId;
 
-	@Column(nullable = false)
-	private Integer album_category;
-
-	@Column(nullable = false)
-	private LocalDateTime create_date;
+	@Column(name = "create_date", nullable = false)
+	private LocalDateTime createDate = LocalDateTime.now();
+	
+	@ManyToOne
+	@JoinColumn(name ="album_artist_id", referencedColumnName = "artist_id")
+	private ArtistEntity albumArtist;
 
 	@Builder
-	public AlbumEntity(Integer album_id, Integer album_artist_id, 
-			String album_name, Integer album_like,
-			String album_jacket, Integer album_category, LocalDateTime create_date) {
-		this.album_id = album_id;
-		this.album_artist_id = album_artist_id;
-		this.album_name = album_name;
-		this.album_like = album_like;
-		this.album_jacket = album_jacket;
-		this.album_category = album_category;
-		this.create_date = create_date;
+	public AlbumEntity(Integer albumId, String albumName, Integer albumLike,
+			String albumJacket, Integer albumCategoryId, LocalDateTime createDate, 
+			ArtistEntity albumArtist) {
+		this.albumId = albumId;
+		this.albumName = albumName;
+		this.albumLike = albumLike;
+		this.albumJacket = albumJacket;
+		this.albumCategoryId = albumCategoryId;
+		this.createDate = createDate;
+		this.albumArtist = albumArtist;
 	}
 
 	@Override
 	public AlbumDto toDto() {
-		// TODO Auto-generated method stub
-		return null;
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper.map(this, AlbumDto.class);
 	}
 }

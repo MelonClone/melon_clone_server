@@ -2,16 +2,20 @@ package com.devgd.melonclone.domain.artist.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.devgd.melonclone.domain.album.domain.AlbumEntity;
 import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 import com.devgd.melonclone.domain.model.BaseEntity;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
@@ -49,6 +53,9 @@ public class ArtistEntity implements Serializable, BaseEntity<ArtistDto> {
 	@OneToOne
 	@JoinColumn(name ="artist_user_id", referencedColumnName = "user_id")
 	private UserEntity artistUser;
+
+	@OneToMany(mappedBy = "albumArtist", cascade = CascadeType.ALL)
+	private List<AlbumEntity> artistAlbum;
 
 	@Builder
 	public ArtistEntity(Integer artistId, String artistName, 
