@@ -14,14 +14,13 @@ import com.devgd.melonclone.domain.music.dto.MusicDto;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Embeddable
 @Table(name = "music_table")
+@NoArgsConstructor
 public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
-	private static final long serialVersionUID = -390950220271593086L;
-
 	@EmbeddedId
 	private MusicId id;
 

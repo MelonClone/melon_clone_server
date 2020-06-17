@@ -13,10 +13,12 @@ import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
 @Table(name = "artist_like_table")
+@NoArgsConstructor
 public class ArtistLikeEntity implements Serializable, BaseEntity<ArtistLikeDto> {
 
 	@EmbeddedId
