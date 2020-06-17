@@ -78,12 +78,10 @@ public class JwtTokenProvider {
 	private UserDetails parseUserDetail(UserDto userDto) { 
 		List<GrantedAuthority> authorities = new ArrayList<>();
 
-		if (userDto != null && userDto.getRole() == Role.ADMIN) {
-			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
-		} else if (userDto != null && userDto.getUserId() != null) {
-			authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
+		if (userDto != null && userDto.getRole() != null && userDto.getRole() != Role.MEMBER) {
+			authorities.add(new SimpleGrantedAuthority(userDto.getRole().getValue()));
 		} else {
-
+			authorities.add(new SimpleGrantedAuthority(Role.MEMBER.getValue()));
 		}
 
 		return new User(userDto.getEmail(), userDto.getPassword(), authorities);
