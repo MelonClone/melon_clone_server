@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -14,33 +17,38 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MusicId implements Serializable {
 
-	@Column(nullable = false)
-	private Integer music_id;
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name = "music_id", nullable = false)
+	private Integer musicId;
 
-	@Column(nullable = false)
-	private Integer music_artist_id;
+	@Column(name = "music_artist_id", nullable = false)
+	private Integer musicArtistId;
 
-	@Column(nullable = false)
-	private Integer music_album_id;
+	@Column(name = "music_album_id", nullable = false)
+	private Integer musicAlbumId;
 
-	@Column(nullable = false)
-	private Integer music_category_id;
+	@Column(name = "music_category_id", nullable = false)
+	private Integer musicCategoryId;
 
 	@Builder
-	public MusicId(Integer music_id, Integer music_artist_id, Integer music_album_id, Integer music_category_id) {
-		this.music_id = music_id;
-		this.music_artist_id = music_artist_id;
-		this.music_album_id = music_album_id;
-		this.music_category_id = music_category_id;
+	public MusicId(Integer musicId, Integer musicArtistId, Integer musicAlbumId, Integer musicCategoryId) {
+		this.musicId = musicId;
+		this.musicArtistId = musicArtistId;
+		this.musicAlbumId = musicAlbumId;
+		this.musicCategoryId = musicCategoryId;
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		return ((o instanceof MusicId) && music_id == ((MusicId) o).getMusic_id() && music_artist_id == ((MusicId) o).getMusic_artist_id());
+		return ((o instanceof MusicId) 
+		&& musicId == ((MusicId) o).getMusicId() 
+		&& musicArtistId == ((MusicId) o).getMusicArtistId()
+		&& musicAlbumId == ((MusicId) o).getMusicAlbumId()
+		&& musicCategoryId == ((MusicId) o).getMusicCategoryId());
 	}
 
 	@Override
 	public int hashCode() {
-		return (int)(music_id ^ music_artist_id);
+		return (int)(musicId ^ musicArtistId ^ musicAlbumId ^ musicCategoryId);
 	}
 }

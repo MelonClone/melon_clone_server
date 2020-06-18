@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
 import com.devgd.melonclone.domain.music.dto.MusicDto;
+
+import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -22,34 +23,39 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
 	@EmbeddedId
-	private MusicId id;
+	private MusicId music;
 
-	@Column(length = 45, nullable = false)
-	private String music_name;
+	@Column(name = "music_name", length = 45, nullable = false)
+	private String musicName;
 
-	@Column(nullable = false)
-	private Integer music_like;
+	@Column(name = "music_like", nullable = false)
+	private Integer musicLike;
 
-	@Column(nullable = false)
-	private Integer music_playtime;
+	@Column(name = "music_playtime", nullable = false)
+	private Integer musicPlaytime;
 
-	@Column(nullable = false)
-	private LocalDateTime create_date;
+	@Column(name = "create_date", nullable = false)
+	private LocalDateTime createDate;
 
 	@Builder
-	public MusicEntity(MusicId id, 
-			String music_name, Integer music_like, Integer music_playtime, 
-			LocalDateTime create_date) {
-		this.id = id;
-		this.music_name = music_name;
-		this.music_like = music_like;
-		this.music_playtime = music_playtime;
-		this.create_date = create_date;
+	public MusicEntity(MusicId music, 
+			String musicName, Integer musicLike, Integer musicPlaytime, 
+			LocalDateTime createDate) {
+		this.music = music;
+		this.musicName = musicName;
+		this.musicLike = musicLike;
+		this.musicPlaytime = musicPlaytime;
+		this.createDate = createDate;
 	}
 
 	@Override
 	public MusicDto toDto() {
-		// TODO Auto-generated method stub
-		return null;
+		ModelMapper modelMapper = new ModelMapper();
+		MusicDto musicDto = modelMapper.map(this, MusicDto.class);
+		musicDto.setMusicId(music.getMusicId());
+		musicDto.setMusicArtistId(music.getMusicArtistId());
+		musicDto.setMusicAlbumId(music.getMusicAlbumId());
+		musicDto.setMusicCategoryId(music.getMusicCategoryId());
+		return musicDto;
 	}
 }
