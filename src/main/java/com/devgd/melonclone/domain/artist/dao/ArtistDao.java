@@ -1,5 +1,6 @@
 package com.devgd.melonclone.domain.artist.dao;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
@@ -58,9 +59,15 @@ public class ArtistDao {
 		return true;
 	}
 
+	public boolean isLike(Integer artistId, Integer userId) {
+		return !artistLikeRepository.findByArlIdArlArtistIdAndArlIdArlUserId(artistId, userId).isEmpty();
+	}
+
 	public void addLike(Integer artistId, Integer userId) {
-		if (artistLikeRepository.findByArlIdArlArtistIdAndArlIdArlUserId(artistId, userId) == null) {
-			artistLikeRepository.save(new ArtistLikeEntity(new ArtistLikeId(artistId, userId)));
-		}
+		artistLikeRepository.save(new ArtistLikeEntity(new ArtistLikeId(artistId, userId), LocalDateTime.now()));
+	}
+
+	public void removeLike(Integer artistId, Integer userId) {
+		artistLikeRepository.delete(new ArtistLikeEntity(new ArtistLikeId(artistId, userId)));
 	}
 }

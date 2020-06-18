@@ -30,7 +30,7 @@ public class ArtistController {
 		Authentication authentication,
 		@PathVariable(name="artist_id") final Integer artist_id) {
 		UserDto userDto = (UserDto)authentication.getPrincipal();
-		artistService.addLike(artist_id, userDto.getUserId());
+		artistService.changeLike(artist_id, userDto.getUserId());
 	}
 
 	@GetMapping(value = "/{artist_id}/music_list")

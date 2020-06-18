@@ -66,7 +66,12 @@ public class ArtistService {
 		return artistDao.removeArtistById(artistId);
 	}
 
-	public void addLike(Integer artistId, Integer userId) {
-		artistDao.addLike(artistId, userId);
+	public void changeLike(Integer artistId, Integer userId) {
+		System.out.println("artist "+artistId + ", user "+userId);
+		
+		if (artistDao.isLike(artistId, userId))
+			artistDao.removeLike(artistId, userId);
+		else
+			artistDao.addLike(artistId, userId);
 	}
 }
