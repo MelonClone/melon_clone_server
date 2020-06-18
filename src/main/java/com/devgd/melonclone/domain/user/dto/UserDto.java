@@ -40,7 +40,7 @@ public class UserDto implements BaseDto<UserEntity> {
 		if (role != null) {
 			RoleEntity roleEntity = new RoleEntity();
 			roleEntity.setRoleUserId(userId);
-			roleEntity.setRoleName(role.getValue());
+			roleEntity.setRoleName(role.name());
 			userEntityBuilder.role(roleEntity);
 		}
 		return userEntityBuilder.build();

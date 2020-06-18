@@ -17,9 +17,14 @@ import lombok.RequiredArgsConstructor;
 public class UserDao {
 	
 	private final UserRepository userRepository;
+	private final RoleRepository roleRepository;
 
 	public Integer save(UserDto userDto) {
 		return userRepository.save(userDto.toEntity()).getUserId();
+	}
+
+	public void saveRole(UserDto userDto) {
+		roleRepository.save(userDto.toEntity().getRole());
 	}
 
 	public UserEntity findByEmail(String userEmail) {
