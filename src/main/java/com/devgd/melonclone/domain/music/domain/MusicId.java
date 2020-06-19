@@ -6,49 +6,43 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @Embeddable
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
+@ToString
 public class MusicId implements Serializable {
 
+	@EqualsAndHashCode.Include
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name = "music_id", nullable = false)
-	private Integer musicId;
+	private String musicId;
 
+	@EqualsAndHashCode.Include
 	@Column(name = "music_artist_id", nullable = false)
 	private Integer musicArtistId;
 
+	@EqualsAndHashCode.Include
 	@Column(name = "music_album_id", nullable = false)
 	private Integer musicAlbumId;
 
+	@EqualsAndHashCode.Include
 	@Column(name = "music_category_id", nullable = false)
 	private Integer musicCategoryId;
 
 	@Builder
-	public MusicId(Integer musicId, Integer musicArtistId, Integer musicAlbumId, Integer musicCategoryId) {
+	public MusicId(String musicId, Integer musicArtistId, Integer musicAlbumId, Integer musicCategoryId) {
 		this.musicId = musicId;
 		this.musicArtistId = musicArtistId;
 		this.musicAlbumId = musicAlbumId;
 		this.musicCategoryId = musicCategoryId;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof MusicId) 
-		&& musicId == ((MusicId) o).getMusicId() 
-		&& musicArtistId == ((MusicId) o).getMusicArtistId()
-		&& musicAlbumId == ((MusicId) o).getMusicAlbumId()
-		&& musicCategoryId == ((MusicId) o).getMusicCategoryId());
-	}
-
-	@Override
-	public int hashCode() {
-		return (int)(musicId ^ musicArtistId ^ musicAlbumId ^ musicCategoryId);
-	}
 }

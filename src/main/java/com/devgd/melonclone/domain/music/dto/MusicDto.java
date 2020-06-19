@@ -1,6 +1,8 @@
 package com.devgd.melonclone.domain.music.dto;
 
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.List;
 
 import com.devgd.melonclone.domain.model.BaseDto;
 import com.devgd.melonclone.domain.music.domain.MusicEntity;
@@ -18,20 +20,25 @@ import lombok.ToString;
 @NoArgsConstructor
 public class MusicDto implements BaseDto<MusicEntity> {
 	
-	private Integer musicId;
+	private String musicId;
 	private Integer musicArtistId;
 	private Integer musicAlbumId;
 	private Integer musicCategoryId;
 	private String musicName;
 	private Integer musicLike = 0;
 	private Integer musicPlaytime = 0;
+	private List<LyricDto> musicLyrics;
 	private LocalDateTime createDate = LocalDateTime.now();
+
+	public String getMusicId() {
+		return musicId != null ? musicId : ""+musicArtistId+"."+musicAlbumId+"."+new Date().getTime();
+	}
 
 	@Override
 	public MusicEntity toEntity() {
 		return MusicEntity.builder()
 			.music(MusicId.builder()
-				.musicId(musicId)
+				.musicId(musicId != null ? musicId : ""+musicArtistId+"."+musicAlbumId+"."+new Date().getTime())
 				.musicArtistId(musicArtistId)
 				.musicAlbumId(musicAlbumId)
 				.musicCategoryId(musicCategoryId)
@@ -44,9 +51,9 @@ public class MusicDto implements BaseDto<MusicEntity> {
 	}
 	
 	@Builder
-	public MusicDto(Integer musicId, Integer musicArtistId, Integer musicAlbumId, 
+	public MusicDto(String musicId, Integer musicArtistId, Integer musicAlbumId, 
 		Integer musicCategoryId, String musicName, Integer musicLike, 
-		Integer musicPlaytime, LocalDateTime createDate) {
+		Integer musicPlaytime, List<LyricDto> musicLyrics, LocalDateTime createDate) {
 		this.musicId = musicId;
 		this.musicArtistId = musicArtistId;
 		this.musicAlbumId = musicAlbumId;
@@ -54,6 +61,7 @@ public class MusicDto implements BaseDto<MusicEntity> {
 		this.musicName = musicName;
 		this.musicLike = musicLike;
 		this.musicPlaytime = musicPlaytime;
+		this.musicLyrics = musicLyrics;
 		this.createDate = createDate;
 	}
 }

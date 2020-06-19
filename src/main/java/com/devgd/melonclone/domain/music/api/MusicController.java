@@ -1,6 +1,9 @@
 package com.devgd.melonclone.domain.music.api;
 
+import java.util.List;
+
 import com.devgd.melonclone.domain.music.application.MusicService;
+import com.devgd.melonclone.domain.music.dto.LyricDto;
 import com.devgd.melonclone.domain.music.dto.MusicDto;
 import com.devgd.melonclone.domain.user.dto.UserDto;
 import com.devgd.melonclone.global.common.response.SuccessResponse;
@@ -28,15 +31,16 @@ public class MusicController {
 		Authentication authentication,
 		@RequestBody MusicDto musicDto) {
 		UserDto userDto = (UserDto)authentication.getPrincipal();
-		Integer musicId = musicService.addMusic(musicDto, userDto);
-		String resturnMsg = "Added music name " + musicDto.getMusicName() +
+		String musicId = musicService.addMusic(musicDto, userDto);
+		musicService.changeLyric(musicId, musicDto.getMusicLyrics());
+		String resultMsg = "Added music name " + musicDto.getMusicName() +
 			" with ID " + musicId;
-		return new SuccessResponse(resturnMsg);
+		return new SuccessResponse(resultMsg);
 	}
 
 	@GetMapping(value = "/{music_id}")
 	public MusicDto getMusic(
-		@PathVariable(name = "music_id") Integer musicId) {
+		@PathVariable(name = "music_id") String musicId) {
 		return musicService.getMusic(musicId);
 	}
 
@@ -45,7 +49,7 @@ public class MusicController {
 		return "{\"coffee\":{\"name\":\"americano\"}}";
 	}
 
-	@PutMapping(value = "/{music_id")
+	@PutMapping(value = "/{music_id}")
 	public String updateMusic() {
 		return "{\"coffee\":{\"name\":\"americano\"}}";
 	}
@@ -58,6 +62,18 @@ public class MusicController {
 	@GetMapping(value = "/{music_id}/lyrics")
 	public String getLyrics() {
 		return "{\"coffee\":{\"name\":\"americano\"}}";
+	}
+	
+	@PutMapping(value = "/{music_id}/lyrics")
+	public SuccessResponse updateLyrics(
+		Authentication authentication,
+		@PathVariable(name = "music_id") String musicId,
+		@RequestBody List<LyricDto> lyricDtoList) {
+		UserDto userDto = (UserDto)authentication.getPrincipal();
+		musicService.checkMusicEditAuth(userDto.getUserId(), musicId);
+		musicService.changeLyric(musicId, lyricDtoList);
+		String resultMsg = "Change lyrics";
+		return new SuccessResponse(resultMsg);
 	}
 	
 	@GetMapping(value = "/{music_id}/similer")

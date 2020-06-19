@@ -16,11 +16,13 @@ import org.modelmapper.ModelMapper;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @Entity
 @Table(name = "music_table")
 @NoArgsConstructor
+@ToString
 public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
 	@EmbeddedId
 	private MusicId music;
