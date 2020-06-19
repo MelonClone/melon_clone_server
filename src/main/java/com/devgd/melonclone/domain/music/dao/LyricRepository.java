@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface LyricRepository extends JpaRepository<LyricEntity, Integer> {
 	Optional<LyricEntity> findByLyricId(Integer lyricId);
-	List<LyricEntity> findAllByLyricMusicId(Integer musicId);
+	List<LyricEntity> findAllByLyricMusicId(String musicId);
 }

@@ -45,13 +45,23 @@ public class MusicController {
 	}
 
 	@DeleteMapping(value = "/{music_id}")
-	public String removeMusic() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
+	public SuccessResponse removeMusic(
+		Authentication authentication,
+		@PathVariable(name = "music_id") String musicId) {
+		UserDto userDto = (UserDto)authentication.getPrincipal();
+		musicService.removeMusic(musicId, userDto);
+		return new SuccessResponse("success!!");
 	}
 
 	@PutMapping(value = "/{music_id}")
-	public String updateMusic() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
+	public SuccessResponse updateMusic(
+		Authentication authentication,
+		@PathVariable(name = "music_id") String musicId,
+		@RequestBody MusicDto musicDto) {
+		UserDto userDto = (UserDto)authentication.getPrincipal();
+		musicDto.setMusicId(musicId);
+		musicService.changeMusic(musicDto, userDto);
+		return new SuccessResponse("success!!");
 	}
 
 	@PostMapping(value = "/{music_id}/like")
@@ -60,8 +70,9 @@ public class MusicController {
 	}
 
 	@GetMapping(value = "/{music_id}/lyrics")
-	public String getLyrics() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
+	public List<LyricDto> getLyrics(
+		@PathVariable(name = "music_id") String musicId) {
+		return musicService.getLyrics(musicId);
 	}
 	
 	@PutMapping(value = "/{music_id}/lyrics")

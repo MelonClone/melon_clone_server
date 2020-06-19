@@ -10,6 +10,7 @@ import com.devgd.melonclone.domain.album.exception.AlbumNotFoundException;
 import com.devgd.melonclone.domain.artist.dao.ArtistDao;
 import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.artist.exception.ArtistNotFoundException;
+import com.devgd.melonclone.domain.artist.exception.ArtistPermissionException;
 import com.devgd.melonclone.domain.music.dao.MusicDao;
 import com.devgd.melonclone.domain.music.domain.LyricEntity;
 import com.devgd.melonclone.domain.music.domain.MusicEntity;
@@ -55,6 +56,29 @@ public class MusicService {
 		return musicDao.getMusic(musicId).toDto();
 	}
 
+	public boolean removeMusic(String musicId, UserDto userDto) {
+		if (!checkMusicEditAuth(userDto.getUserId(), musicId)) throw new ArtistPermissionException();
+		
+		return musicDao.deleteMusic(musicDao.getMusic(musicId));
+	}
+
+	public String changeMusic(MusicDto musicDto, UserDto userDto) {
+		if (!checkMusicEditAuth(userDto.getUserId(), musicDto.getMusicId())) throw new ArtistPermissionException();
+		musicDto.setMusicArtistId(artistDao.getArtistByUserId(userDto.getUserId()).getArtistId());
+		return musicDao.save(musicDto.toEntity());
+	}
+
+	public List<LyricDto> getLyrics(String musicId) {
+		List<LyricEntity> lyricEntityList = musicDao.getLyrics(musicId);
+		List<LyricDto> lyricDtoList = new ArrayList<>();
+		for (int i=0; i<lyricEntityList.size(); i++) {
+			LyricEntity lyricEntity = lyricEntityList.get(i);
+			lyricDtoList.add(lyricEntity.toDto());
+		}
+
+		return lyricDtoList;
+	}
+
 	public void changeLyric(String musicId, List<LyricDto> lyricDtoList) {
 		List<LyricEntity> lyricEntityList = new ArrayList<>();
 		lyricDtoList.sort(new Comparator<LyricDto>() {
@@ -65,7 +89,6 @@ public class MusicService {
 		});
 		for (int i=0; i<lyricDtoList.size(); i++) {
 			LyricDto lyricDto = lyricDtoList.get(i);
-			System.out.println(lyricDto.toString() +" "+i);
 			lyricEntityList.add(LyricEntity.builder()
 				.lyricId(i+1)
 				.lyricMusicId(musicId)

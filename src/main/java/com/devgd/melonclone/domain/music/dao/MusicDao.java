@@ -29,9 +29,18 @@ public class MusicDao {
 			.orElseThrow(() -> new MusicNotFoundException(musicId+""));
 	}
 
-	public List<LyricEntity> getLyrics(String musicId) {
+	public boolean deleteMusic(MusicEntity musicEntity) {
+		musicRepository.delete(musicEntity);
+		return true;
+	}
 
-		return null;
+	public boolean deleteMusic(MusicId musicId) {
+		musicRepository.deleteById(musicId);
+		return true;
+	}
+
+	public List<LyricEntity> getLyrics(String musicId) {
+		return lyricRepository.findAllByLyricMusicId(musicId);
 	}
 
 	public void changeLyrics(List<LyricEntity> lyrics) {
