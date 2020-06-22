@@ -57,9 +57,4 @@ public class ArtistController {
 		return albumService.getAlbumsByArtistId(artistId);
 	}
 	
-	@GetMapping(value = "/{artist_id}/album/{album_id}/music_list")
-	public String getArtistAlbumMusics() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
-	}
-	
 }

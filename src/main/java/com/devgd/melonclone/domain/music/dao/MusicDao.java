@@ -32,6 +32,10 @@ public class MusicDao {
 		return musicRepository.findAllByMusicMusicArtistId(artistId);
 	}
 
+	public List<MusicEntity> getMusicsByAlbumId(Integer albumId) {
+		return musicRepository.findAllByMusicMusicAlbumId(albumId);
+	}
+
 	public boolean deleteMusic(MusicEntity musicEntity) {
 		musicRepository.delete(musicEntity);
 		return true;

@@ -1,7 +1,11 @@
 package com.devgd.melonclone.domain.album.api;
 
+import java.util.List;
+
 import com.devgd.melonclone.domain.album.application.AlbumService;
 import com.devgd.melonclone.domain.album.dto.AlbumDto;
+import com.devgd.melonclone.domain.music.application.MusicService;
+import com.devgd.melonclone.domain.music.dto.MusicDto;
 import com.devgd.melonclone.domain.user.dto.UserDto;
 import com.devgd.melonclone.global.common.response.SuccessResponse;
 
@@ -22,6 +26,9 @@ public class AlbumController {
 
 	@Autowired
 	AlbumService albumService;
+	
+	@Autowired
+	MusicService musicService;
 
 	@PostMapping()
 	public SuccessResponse addArtistAlbum(
@@ -38,6 +45,13 @@ public class AlbumController {
 	public AlbumDto getAlbums(
 		@PathVariable(name="album_id") final Integer albumId) {
 		return albumService.getAlbum(albumId);
+	}
+	
+	
+	@GetMapping(value = "/{album_id}/music_list")
+	public List<MusicDto> getAlbumMusics(
+		@PathVariable(name="album_id") final Integer albumId) {
+		return musicService.getMusicsByAlbumId(albumId);
 	}
 
 	@PutMapping(value = "/{album_id}")

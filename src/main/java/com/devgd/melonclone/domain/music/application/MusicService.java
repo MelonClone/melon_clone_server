@@ -67,6 +67,17 @@ public class MusicService {
 		return musicDtoList;
 	}
 
+	public List<MusicDto> getMusicsByAlbumId(Integer albumId) {
+		List<MusicEntity> musicEntityList = musicDao.getMusicsByAlbumId(albumId);
+		List<MusicDto> musicDtoList = new ArrayList<>();
+		for (int i=0; i<musicEntityList.size(); i++) {
+			MusicEntity musicEntity = musicEntityList.get(i);
+			musicDtoList.add(musicEntity.toDto());
+		}
+
+		return musicDtoList;
+	}
+
 	public boolean removeMusic(String musicId, UserDto userDto) {
 		if (!checkMusicEditAuth(userDto.getUserId(), musicId)) throw new ArtistPermissionException();
 		
