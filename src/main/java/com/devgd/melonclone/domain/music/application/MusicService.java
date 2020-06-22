@@ -120,4 +120,9 @@ public class MusicService {
 		}
 		musicDao.changeLyrics(lyricEntityList);
 	}
+	
+	public void changeLike(String musicId, Integer userId) {
+		if (musicDao.isLike(musicId, userId)) musicDao.removeLike(musicId, userId);
+		else musicDao.addLike(musicId, userId);
+	}
 }

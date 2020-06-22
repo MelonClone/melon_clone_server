@@ -1,10 +1,13 @@
 package com.devgd.melonclone.domain.music.dao;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import com.devgd.melonclone.domain.music.domain.LyricEntity;
 import com.devgd.melonclone.domain.music.domain.MusicEntity;
 import com.devgd.melonclone.domain.music.domain.MusicId;
+import com.devgd.melonclone.domain.music.domain.MusicLikeEntity;
+import com.devgd.melonclone.domain.music.domain.MusicLikeId;
 import com.devgd.melonclone.domain.music.exception.MusicNotFoundException;
 
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MusicDao {
 	private final MusicRepository musicRepository;
+	private final MusicLikeRepository musicLikeRepository;
 	private final LyricRepository lyricRepository;
 
 	public String save(MusicEntity musicEntity) {
@@ -55,6 +59,19 @@ public class MusicDao {
 	}
 
 	public void changeLyric(LyricEntity lyric) {
+		lyricRepository.save(lyric);
+	}
 
+	
+	public boolean isLike(String musicId, Integer userId) {
+		return !musicLikeRepository.findByMulIdMulMusicIdAndMulIdMulUserId(musicId, userId).isEmpty();
+	}
+
+	public void addLike(String musicId, Integer userId) {
+		musicLikeRepository.save(new MusicLikeEntity(new MusicLikeId(musicId, userId), LocalDateTime.now()));
+	}
+
+	public void removeLike(String musicId, Integer userId) {
+		musicLikeRepository.delete(new MusicLikeEntity(new MusicLikeId(musicId, userId)));
 	}
 }

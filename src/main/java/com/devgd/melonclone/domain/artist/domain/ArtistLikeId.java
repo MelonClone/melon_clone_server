@@ -6,12 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @Embeddable
 @NoArgsConstructor
+@EqualsAndHashCode
 public class ArtistLikeId implements Serializable {
 	
 	@Column(name = "arl_artist_id", nullable = false)
@@ -24,15 +26,5 @@ public class ArtistLikeId implements Serializable {
 	public ArtistLikeId(Integer artistId, Integer userId) {
 		this.arlArtistId = artistId;
 		this.arlUserId = userId;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof ArtistLikeId) && arlArtistId == ((ArtistLikeId) o).getArlArtistId() && arlUserId == ((ArtistLikeId) o).getArlUserId());
-	}
-
-	@Override
-	public int hashCode() {
-		return (int)(arlArtistId ^ arlUserId);
 	}
 }

@@ -65,8 +65,11 @@ public class MusicController {
 	}
 
 	@PostMapping(value = "/{music_id}/like")
-	public String like() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
+	public void like(
+		Authentication authentication,
+		@PathVariable(name="music_id") final String musicId) {
+		UserDto userDto = (UserDto)authentication.getPrincipal();
+		musicService.changeLike(musicId, userDto.getUserId());
 	}
 
 	@GetMapping(value = "/{music_id}/lyrics")
