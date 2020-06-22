@@ -28,16 +28,12 @@ public class UserDao {
 	}
 
 	public UserEntity findByEmail(String userEmail) {
-		final Optional<UserEntity> user = userRepository.findByEmail(userEmail);
-		user.orElseThrow(() -> new UserNotFoundException(userEmail));
-
-		return user.get();
+		return userRepository.findByEmail(userEmail)
+			.orElseThrow(() -> new UserNotFoundException(userEmail));
 	}
 
 	public UserEntity findById(Integer userId) {
-		final Optional<UserEntity> user = userRepository.findByUserId(userId);
-		user.orElseThrow(() -> new UserNotFoundException(userId+""));
-
-		return user.get();
+		return userRepository.findByUserId(userId)
+			.orElseThrow(() -> new UserNotFoundException(userId+""));
 	}
 }

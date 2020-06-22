@@ -26,6 +26,8 @@ public class UserDto implements BaseDto<UserEntity> {
 	private LocalDateTime createDate = LocalDateTime.now();
 	private LocalDateTime lastLogin;
 	private Role role;
+	private Boolean activate = true;
+	private LocalDateTime disableDate;
 
 	@Override
 	public UserEntity toEntity(){
@@ -35,7 +37,9 @@ public class UserDto implements BaseDto<UserEntity> {
 				.email(email)
 				.password(password)
 				.createDate(createDate)
-				.lastLogin(lastLogin);
+				.lastLogin(lastLogin)
+				.activate(activate)
+				.disableDate(disableDate);
 
 		if (role != null) {
 			RoleEntity roleEntity = new RoleEntity();

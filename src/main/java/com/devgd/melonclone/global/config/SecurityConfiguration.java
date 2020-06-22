@@ -39,7 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 				.and()
 			.authorizeRequests()
-				.antMatchers("/admin/{\\d+}/**",
+				.antMatchers("/v1/admin/user/**",
 							"/v1/produce/{\\d+}/**")
 							.hasRole(Role.ADMIN.name())
 				.antMatchers("/v1/artist_manage/{\\d+}/**")

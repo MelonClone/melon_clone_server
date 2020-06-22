@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.devgd.melonclone.domain.user.application.UserService;
 import com.devgd.melonclone.domain.user.dto.UserDto;
+import com.devgd.melonclone.domain.user.exception.UserNotFoundException;
 import com.devgd.melonclone.global.common.response.SuccessResponse;
 import com.devgd.melonclone.global.config.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController("user")
 @RequestMapping("/v1/user")
-public class MelonUserController {
+public class UserController {
 	
 	@Autowired
 	UserService userService;
@@ -25,7 +26,7 @@ public class MelonUserController {
 	JwtTokenProvider jwtTokenProvider;
 
 	@PostMapping(value = "/regist")
-	public SuccessResponse userRegist(@RequestBody UserDto userDto) {
+	public SuccessResponse registUser(@RequestBody UserDto userDto) {
 		Integer userId = userService.joinUser(userDto);
 		String resturnMsg = "Added user " + userDto.getEmail() + 
 			" with ID " + userId;
@@ -33,11 +34,13 @@ public class MelonUserController {
 	}
 
 	@PostMapping(value = "/login")
-	public String userLogin(@RequestBody Map<String, Object> loginReq) {
+	public String loginUser(@RequestBody Map<String, Object> loginReq) {
 		
 		String email = (String) loginReq.get("email");
 		String password = (String) loginReq.get("password");
 		UserDto user = userService.authenticate(email, password);
+		if (!user.getActivate()) throw new UserNotFoundException(email);
+		userService.updateLastLogin(user);
 
 		Map<String, String> publicUserInfo = new HashMap<String, String>();
 		publicUserInfo.put("user_id", user.getUserId()+"");
@@ -48,7 +51,7 @@ public class MelonUserController {
 	}
 
 	@DeleteMapping(value = "/logout")
-	public String userLogout() {
+	public String logoutUser() {
 		return "{\"coffee\":{\"name\":\"americano\"}}";
 	}
 	

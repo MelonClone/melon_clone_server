@@ -55,9 +55,15 @@ public class UserEntity implements Serializable, BaseEntity<UserDto> {
 	@OneToOne(mappedBy = "artistUser", cascade = CascadeType.ALL)
 	private ArtistEntity artist;
 
+	@Column(name = "activate", nullable = false)
+	private Boolean activate = true;
+
+	@Column(name = "disable_date", nullable = true)
+	private LocalDateTime disableDate;
+
 	@Builder
 	public UserEntity(Integer userId, String email, String nickname,
-			String password, LocalDateTime createDate, LocalDateTime lastLogin, RoleEntity role, ArtistEntity artist) {
+			String password, LocalDateTime createDate, LocalDateTime lastLogin, RoleEntity role, ArtistEntity artist, Boolean activate, LocalDateTime disableDate) {
 		this.userId = userId;
 		this.email = email;
 		this.nickname = nickname;
@@ -66,6 +72,8 @@ public class UserEntity implements Serializable, BaseEntity<UserDto> {
 		this.lastLogin = lastLogin;
 		this.role = role;
 		this.artist = artist;
+		this.activate = activate;
+		this.disableDate = disableDate;
 	}
 
 	@Override
