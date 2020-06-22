@@ -13,5 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface AlbumRepository extends JpaRepository<AlbumEntity, Integer> {
 	Optional<AlbumEntity> findByAlbumId(Integer albumId);
 	List<AlbumEntity> findAllByAlbumArtist(ArtistEntity artistEntity);
+	List<AlbumEntity> findAllByAlbumArtistArtistId(Integer artistId);
 	Optional<AlbumEntity> findByAlbumIdAndAlbumArtist(Integer albumId, ArtistEntity artistEntity);
 }

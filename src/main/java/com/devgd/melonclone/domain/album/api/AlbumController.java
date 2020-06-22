@@ -8,6 +8,7 @@ import com.devgd.melonclone.global.common.response.SuccessResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -33,8 +34,14 @@ public class AlbumController {
 		return new SuccessResponse(resturnMsg);
 	}
 
+	@GetMapping(value = "/{album_id}")
+	public AlbumDto getAlbums(
+		@PathVariable(name="album_id") final Integer albumId) {
+		return albumService.getAlbum(albumId);
+	}
+
 	@PutMapping(value = "/{album_id}")
-	public SuccessResponse addArtistAlbum(
+	public SuccessResponse changeArtistAlbum(
 		Authentication authentication,
 		@RequestBody AlbumDto albumDto,
 		@PathVariable(name = "album_id") Integer albumId) {

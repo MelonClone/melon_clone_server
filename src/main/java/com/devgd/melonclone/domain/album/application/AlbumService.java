@@ -1,5 +1,8 @@
 package com.devgd.melonclone.domain.album.application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.devgd.melonclone.domain.album.dao.AlbumDao;
 import com.devgd.melonclone.domain.album.domain.AlbumEntity;
 import com.devgd.melonclone.domain.album.dto.AlbumDto;
@@ -46,6 +49,21 @@ public class AlbumService {
 		AlbumEntity albumEntity = albumDto.toEntity();
 		albumEntity.setAlbumArtist(checkAlbumCreateAuth(userDto.getUserId()));
 		return albumDao.save(albumEntity);
+	}
+
+	public AlbumDto getAlbum(Integer albumId) {
+		return albumDao.getAlbum(albumId).toDto();
+	}
+
+	public List<AlbumDto> getAlbumsByArtistId(Integer artistId) {
+		List<AlbumEntity> albumEntityList = albumDao.getAlbumByArtistId(artistId);
+		List<AlbumDto> albumDtoList = new ArrayList<>();
+		for (int i=0; i<albumEntityList.size(); i++) {
+			AlbumEntity albumEntity = albumEntityList.get(i);
+			albumDtoList.add(albumEntity.toDto());
+		}
+
+		return albumDtoList;
 	}
 
 	public boolean updateAlbum(UserDto userDto, AlbumDto albumDto) {

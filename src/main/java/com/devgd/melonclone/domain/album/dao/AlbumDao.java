@@ -26,8 +26,12 @@ public class AlbumDao {
 			.orElseThrow(() -> new AlbumNotFoundException(albumId+""));
 	}
 
-	public List<AlbumEntity> getAlbumByArtistId(ArtistEntity artistEntity) {
+	public List<AlbumEntity> getAlbumByArtist(ArtistEntity artistEntity) {
 		return albumRepository.findAllByAlbumArtist(artistEntity);
+	}
+
+	public List<AlbumEntity> getAlbumByArtistId(Integer artistId) {
+		return albumRepository.findAllByAlbumArtistArtistId(artistId);
 	}
 
 	public AlbumEntity getAlbumWithArtist(Integer albumId, ArtistEntity artistEntity) {

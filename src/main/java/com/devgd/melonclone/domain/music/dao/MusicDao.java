@@ -28,6 +28,10 @@ public class MusicDao {
 			.orElseThrow(() -> new MusicNotFoundException(musicId+""));
 	}
 
+	public List<MusicEntity> getMusicsByArtistId(Integer artistId) {
+		return musicRepository.findAllByMusicMusicArtistId(artistId);
+	}
+
 	public boolean deleteMusic(MusicEntity musicEntity) {
 		musicRepository.delete(musicEntity);
 		return true;
