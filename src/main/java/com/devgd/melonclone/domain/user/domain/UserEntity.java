@@ -2,6 +2,7 @@ package com.devgd.melonclone.domain.user.domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,12 +10,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.model.BaseEntity;
 import com.devgd.melonclone.domain.model.Role;
+import com.devgd.melonclone.domain.playlist.domain.UserPlaylistEntity;
 import com.devgd.melonclone.domain.user.dto.UserDto;
 
 import org.modelmapper.ModelMapper;
@@ -49,17 +52,20 @@ public class UserEntity implements Serializable, BaseEntity<UserDto> {
 	@Column(name = "last_login", nullable = true)
 	private LocalDateTime lastLogin;
 
+	@Column(name = "activate", nullable = false)
+	private Boolean activate = true;
+
+	@Column(name = "disable_date", nullable = true)
+	private LocalDateTime disableDate;
+
 	@OneToOne(mappedBy = "roleUser", cascade = CascadeType.ALL)
 	private RoleEntity role;
 
 	@OneToOne(mappedBy = "artistUser", cascade = CascadeType.ALL)
 	private ArtistEntity artist;
 
-	@Column(name = "activate", nullable = false)
-	private Boolean activate = true;
-
-	@Column(name = "disable_date", nullable = true)
-	private LocalDateTime disableDate;
+	@OneToMany(mappedBy = "upPlaylist", cascade = CascadeType.ALL)
+	private Set<UserPlaylistEntity> userPlaylist;
 
 	@Builder
 	public UserEntity(Integer userId, String email, String nickname,
