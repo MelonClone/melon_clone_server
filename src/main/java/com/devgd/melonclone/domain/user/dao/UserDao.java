@@ -1,7 +1,5 @@
 package com.devgd.melonclone.domain.user.dao;
 
-import java.util.Optional;
-
 import com.devgd.melonclone.domain.user.domain.UserEntity;
 import com.devgd.melonclone.domain.user.dto.UserDto;
 import com.devgd.melonclone.domain.user.exception.UserNotFoundException;

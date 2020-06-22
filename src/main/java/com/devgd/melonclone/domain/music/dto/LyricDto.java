@@ -1,7 +1,5 @@
 package com.devgd.melonclone.domain.music.dto;
 
-import java.time.LocalDateTime;
-
 import com.devgd.melonclone.domain.model.BaseDto;
 import com.devgd.melonclone.domain.music.domain.LyricEntity;
 

@@ -5,7 +5,6 @@ import com.devgd.melonclone.domain.artist.dto.ArtistDto;
 import com.devgd.melonclone.domain.model.Role;
 import com.devgd.melonclone.domain.user.application.RoleService;
 import com.devgd.melonclone.domain.user.application.UserService;
-import com.devgd.melonclone.domain.user.dto.UserDto;
 import com.devgd.melonclone.global.common.response.SuccessResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;

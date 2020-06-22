@@ -3,7 +3,6 @@ package com.devgd.melonclone.domain.user.api;
 import com.devgd.melonclone.domain.user.application.UserService;
 import com.devgd.melonclone.domain.user.dto.UserDto;
 import com.devgd.melonclone.global.common.response.SuccessResponse;
-import com.devgd.melonclone.global.config.JwtTokenProvider;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;

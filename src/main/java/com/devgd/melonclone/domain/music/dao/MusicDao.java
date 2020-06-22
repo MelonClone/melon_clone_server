@@ -3,7 +3,6 @@ package com.devgd.melonclone.domain.music.dao;
 import java.util.List;
 
 import com.devgd.melonclone.domain.music.domain.LyricEntity;
-import com.devgd.melonclone.domain.music.domain.LyricEntity;
 import com.devgd.melonclone.domain.music.domain.MusicEntity;
 import com.devgd.melonclone.domain.music.domain.MusicId;
 import com.devgd.melonclone.domain.music.exception.MusicNotFoundException;
