@@ -50,7 +50,7 @@ public class AlbumEntity implements Serializable, BaseEntity<AlbumDto> {
 	private LocalDateTime createDate = LocalDateTime.now();
 	
 	@ManyToOne
-	@JoinColumn(name ="album_artist_id", referencedColumnName = "artist_id")
+	@JoinColumn(name ="album_artist_id", referencedColumnName = "artist_id", nullable = false)
 	private ArtistEntity albumArtist;
 
 	@Builder

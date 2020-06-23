@@ -51,7 +51,7 @@ public class ArtistEntity implements Serializable, BaseEntity<ArtistDto> {
 	private LocalDateTime createDate;
 	
 	@OneToOne
-	@JoinColumn(name ="artist_user_id", referencedColumnName = "user_id")
+	@JoinColumn(name ="artist_user_id", referencedColumnName = "user_id", nullable = false)
 	private UserEntity artistUser;
 
 	@OneToMany(mappedBy = "albumArtist", cascade = CascadeType.ALL)

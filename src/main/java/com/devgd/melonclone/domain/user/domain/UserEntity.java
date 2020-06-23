@@ -69,17 +69,20 @@ public class UserEntity implements Serializable, BaseEntity<UserDto> {
 
 	@Builder
 	public UserEntity(Integer userId, String email, String nickname,
-			String password, LocalDateTime createDate, LocalDateTime lastLogin, RoleEntity role, ArtistEntity artist, Boolean activate, LocalDateTime disableDate) {
+			String password, LocalDateTime createDate, LocalDateTime lastLogin, 
+			Boolean activate, LocalDateTime disableDate, 
+			RoleEntity role, ArtistEntity artist, Set<UserPlaylistEntity> userPlaylist) {
 		this.userId = userId;
 		this.email = email;
 		this.nickname = nickname;
 		this.password = password;
 		this.createDate = createDate;
 		this.lastLogin = lastLogin;
-		this.role = role;
-		this.artist = artist;
 		this.activate = activate;
 		this.disableDate = disableDate;
+		this.role = role;
+		this.artist = artist;
+		this.userPlaylist = userPlaylist;
 	}
 
 	@Override

@@ -38,13 +38,14 @@ public class PlaylistEntity implements Serializable, BaseEntity<PlaylistDto> {
 	@Column(name = "playlist_name", length = 45, nullable = false)
 	private String playlistName;
 	
-	@OneToMany(mappedBy = "upUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "upUser", cascade = CascadeType.ALL)
 	private Set<UserPlaylistEntity> userPlaylist;
 
 	@Builder
-	public PlaylistEntity(Integer playlistId, String playlistName) {
+	public PlaylistEntity(Integer playlistId, String playlistName, Set<UserPlaylistEntity> userPlaylist) {
 		this.playlistId = playlistId;
 		this.playlistName = playlistName;
+		this.userPlaylist = userPlaylist;
 	}
 
 	@Override

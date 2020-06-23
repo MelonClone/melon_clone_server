@@ -2,6 +2,7 @@ package com.devgd.melonclone.domain.playlist.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +18,6 @@ import com.devgd.melonclone.domain.model.BaseEntity;
 import com.devgd.melonclone.domain.playlist.dto.UserPlaylistDto;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
 
-import org.hibernate.annotations.OnDelete;
 import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
@@ -38,18 +38,18 @@ import lombok.Setter;
 public class UserPlaylistEntity implements Serializable, BaseEntity<UserPlaylistDto> {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "up_id")
 	private Integer upId;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@MapsId("up_user_id")
-	@JoinColumn(name ="up_user_id", referencedColumnName = "user_id")
+	@JoinColumn(name = "up_user_id", referencedColumnName = "user_id", nullable = false)
 	private UserEntity upUser;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@MapsId("up_playlist_id")
-	@JoinColumn(name ="up_playlist_id", referencedColumnName = "playlist_id")
+	@JoinColumn(name ="up_playlist_id", referencedColumnName = "playlist_id", nullable = false)
 	private PlaylistEntity upPlaylist;
 
 	@Builder

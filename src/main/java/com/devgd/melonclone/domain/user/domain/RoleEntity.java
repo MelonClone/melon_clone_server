@@ -22,14 +22,14 @@ import lombok.Setter;
 public class RoleEntity implements Serializable {
 	
 	@Id
-	@Column(name = "role_user_id")
+	@Column(name = "role_user_id", nullable = false)
 	private Integer roleUserId;
 
 	@Column(name = "role_name")
 	private String roleName;
 
 	@OneToOne
-	@JoinColumn(name ="role_user_id", referencedColumnName = "user_id")
+	@JoinColumn(name ="role_user_id", referencedColumnName = "user_id", nullable = false)
 	private UserEntity roleUser;
 	
 

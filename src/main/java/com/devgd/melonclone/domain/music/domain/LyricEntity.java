@@ -25,17 +25,17 @@ import lombok.NoArgsConstructor;
 public class LyricEntity implements Serializable, BaseEntity<LyricDto> {
 	
 	@Id
-	@Column(name = "lyric_id")
+	@Column(name = "lyric_id", nullable = false)
 	private Integer lyricId;
 
 	@Id
-	@Column(name = "lyric_music_id")
+	@Column(name = "lyric_music_id", nullable = false)
 	private String lyricMusicId;
 	
-	@Column(name = "lyric_time")
+	@Column(name = "lyric_time", nullable = false)
 	private Integer lyricTime;
 	
-	@Column(name = "lyric_txt")
+	@Column(name = "lyric_txt", nullable = false)
 	private String lyricTxt;
 	
 	@Builder

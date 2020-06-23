@@ -21,7 +21,7 @@ public class PlaylistController {
 	@Autowired
 	PlaylistService playlistService;
 
-	@PostMapping(value = "/")
+	@PostMapping()
 	public SuccessResponse addPlaylist(
 		Authentication authentication,
 		@RequestBody PlaylistDto playlistDto) {
@@ -32,7 +32,7 @@ public class PlaylistController {
 		return new SuccessResponse(resturnMsg);
 	}
 
-	@GetMapping(value = "/")
+	@GetMapping()
 	public String getPlaylists() {
 		return "{\"coffee\":{\"name\":\"americano\"}}";
 	}

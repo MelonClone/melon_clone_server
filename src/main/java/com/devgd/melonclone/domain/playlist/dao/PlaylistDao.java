@@ -16,7 +16,8 @@ public class PlaylistDao {
 	private final UserPlaylistRepository userPlaylistRepository;
 
 	public PlaylistEntity savePlaylist(PlaylistEntity playlistEntity) {
-		return playlistRepository.save(playlistEntity);
+		// Generated values are only gurateed to be generated at flush time.
+		return playlistRepository.saveAndFlush(playlistEntity);
 	}
 
 	public UserPlaylistEntity saveUserPlaylist(UserPlaylistEntity userPlaylistEntity) {
