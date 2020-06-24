@@ -12,5 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface UserPlaylistRepository extends JpaRepository<UserPlaylistEntity, Integer> {
 	Optional<UserPlaylistEntity> findByUpUserUserId(Integer userId);
 	Optional<UserPlaylistEntity> findByUpPlaylistPlaylistId(Integer playlistId);
+	Optional<UserPlaylistEntity> findByUpUserUserIdAndUpPlaylistPlaylistId(Integer userId, Integer playlistId);
 	List<UserPlaylistEntity> findAllByUpUserUserId(Integer userId);
 }

@@ -64,7 +64,7 @@ public class UserEntity implements Serializable, BaseEntity<UserDto> {
 	@OneToOne(mappedBy = "artistUser", cascade = CascadeType.ALL)
 	private ArtistEntity artist;
 
-	@OneToMany(mappedBy = "upPlaylist", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "upUser", cascade = CascadeType.ALL)
 	private Set<UserPlaylistEntity> userPlaylist;
 
 	@Builder

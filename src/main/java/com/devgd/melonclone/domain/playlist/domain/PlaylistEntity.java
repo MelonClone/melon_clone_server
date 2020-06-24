@@ -15,8 +15,6 @@ import javax.persistence.Table;
 import com.devgd.melonclone.domain.model.BaseEntity;
 import com.devgd.melonclone.domain.playlist.dto.PlaylistDto;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
@@ -38,14 +36,18 @@ public class PlaylistEntity implements Serializable, BaseEntity<PlaylistDto> {
 	@Column(name = "playlist_name", length = 45, nullable = false)
 	private String playlistName;
 	
-	@OneToMany(mappedBy = "upUser", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "upPlaylist", cascade = CascadeType.ALL)
 	private Set<UserPlaylistEntity> userPlaylist;
 
+	@OneToMany(mappedBy = "pmPlaylist", cascade = CascadeType.ALL)
+	private Set<PlaylistMusicEntity> playlistMusic;
+
 	@Builder
-	public PlaylistEntity(Integer playlistId, String playlistName, Set<UserPlaylistEntity> userPlaylist) {
+	public PlaylistEntity(Integer playlistId, String playlistName, Set<UserPlaylistEntity> userPlaylist, Set<PlaylistMusicEntity> playlistMusic) {
 		this.playlistId = playlistId;
 		this.playlistName = playlistName;
 		this.userPlaylist = userPlaylist;
+		this.playlistMusic = playlistMusic;
 	}
 
 	@Override

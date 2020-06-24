@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
@@ -24,8 +25,19 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
-	@EmbeddedId
-	private MusicId music;
+
+	@Id
+	@Column(name = "music_id", nullable = false)
+	private String musicId;
+
+	@Column(name = "music_artist_id", nullable = false)
+	private Integer musicArtistId;
+
+	@Column(name = "music_album_id", nullable = false)
+	private Integer musicAlbumId;
+
+	@Column(name = "music_category_id", nullable = false)
+	private Integer musicCategoryId;
 
 	@Column(name = "music_name", length = 45, nullable = false)
 	private String musicName;
@@ -40,10 +52,10 @@ public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
 	private LocalDateTime createDate;
 
 	@Builder
-	public MusicEntity(MusicId music, 
+	public MusicEntity(String musicId, Integer musicArtistId, Integer musicAlbumId, Integer musicCategoryId,
 			String musicName, Integer musicLike, Integer musicPlaytime, 
 			LocalDateTime createDate) {
-		this.music = music;
+		this.musicId = musicId;
 		this.musicName = musicName;
 		this.musicLike = musicLike;
 		this.musicPlaytime = musicPlaytime;
@@ -54,10 +66,6 @@ public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
 	public MusicDto toDto() {
 		ModelMapper modelMapper = new ModelMapper();
 		MusicDto musicDto = modelMapper.map(this, MusicDto.class);
-		musicDto.setMusicId(music.getMusicId());
-		musicDto.setMusicArtistId(music.getMusicArtistId());
-		musicDto.setMusicAlbumId(music.getMusicAlbumId());
-		musicDto.setMusicCategoryId(music.getMusicCategoryId());
 		return musicDto;
 	}
 }

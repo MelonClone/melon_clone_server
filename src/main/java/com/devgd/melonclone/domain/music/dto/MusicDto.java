@@ -37,12 +37,10 @@ public class MusicDto implements BaseDto<MusicEntity> {
 	@Override
 	public MusicEntity toEntity() {
 		return MusicEntity.builder()
-			.music(MusicId.builder()
-				.musicId(musicId != null ? musicId : ""+musicArtistId+"."+musicAlbumId+"."+new Date().getTime())
-				.musicArtistId(musicArtistId)
-				.musicAlbumId(musicAlbumId)
-				.musicCategoryId(musicCategoryId)
-				.build())
+			.musicId(musicId != null ? musicId : ""+musicArtistId+"."+musicAlbumId+"."+new Date().getTime())
+			.musicArtistId(musicArtistId)
+			.musicAlbumId(musicAlbumId)
+			.musicCategoryId(musicCategoryId)
 			.musicName(musicName)
 			.musicLike(musicLike)
 			.musicPlaytime(musicPlaytime)

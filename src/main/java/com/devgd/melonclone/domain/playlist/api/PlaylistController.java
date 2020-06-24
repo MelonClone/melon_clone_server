@@ -2,8 +2,10 @@ package com.devgd.melonclone.domain.playlist.api;
 
 import java.util.List;
 
+import com.devgd.melonclone.domain.music.dto.MusicDto;
 import com.devgd.melonclone.domain.playlist.application.PlaylistService;
 import com.devgd.melonclone.domain.playlist.dto.PlaylistDto;
+import com.devgd.melonclone.domain.playlist.dto.PlaylistMusicDto;
 import com.devgd.melonclone.domain.user.dto.UserDto;
 import com.devgd.melonclone.global.common.response.SuccessResponse;
 
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,8 +51,14 @@ public class PlaylistController {
 	}
 	
 	@PostMapping(value = "/{list_id}/item")
-	public String addPlaylistItem() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
+	public SuccessResponse addPlaylistItem(
+		Authentication authentication,
+		@PathVariable(name="list_id") final Integer playlistId,
+		@RequestBody MusicDto musicDto) {
+		UserDto userDto = (UserDto)authentication.getPrincipal();
+		PlaylistMusicDto playlistMusicDto = playlistService.addPlaylistMusic(userDto, playlistId, musicDto.getMusicId());
+		String resturnMsg = "Added playlist item into " + playlistMusicDto.getPlaylistDto().getPlaylistName();
+		return new SuccessResponse(resturnMsg);
 	}
 
 	@DeleteMapping(value = "/{list_id}/item/{item_id}")

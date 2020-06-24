@@ -16,6 +16,7 @@ import lombok.ToString;
 public class PlaylistDto implements BaseDto<PlaylistEntity> {
 	private Integer playlistId;
 	private String playlistName;
+	private Integer size;
 	
 	@Override
 	public PlaylistEntity toEntity(){

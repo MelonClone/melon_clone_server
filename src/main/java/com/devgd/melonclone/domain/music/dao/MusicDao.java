@@ -24,20 +24,20 @@ public class MusicDao {
 	private final LyricRepository lyricRepository;
 
 	public String save(MusicEntity musicEntity) {
-		return musicRepository.save(musicEntity).getMusic().getMusicId();
+		return musicRepository.save(musicEntity).getMusicId();
 	}
 
 	public MusicEntity getMusic(String musicId) {
-		return musicRepository.findByMusicMusicId(musicId)
+		return musicRepository.findByMusicId(musicId)
 			.orElseThrow(() -> new MusicNotFoundException(musicId+""));
 	}
 
 	public List<MusicEntity> getMusicsByArtistId(Integer artistId) {
-		return musicRepository.findAllByMusicMusicArtistId(artistId);
+		return musicRepository.findAllByMusicArtistId(artistId);
 	}
 
 	public List<MusicEntity> getMusicsByAlbumId(Integer albumId) {
-		return musicRepository.findAllByMusicMusicAlbumId(albumId);
+		return musicRepository.findAllByMusicAlbumId(albumId);
 	}
 
 	public boolean deleteMusic(MusicEntity musicEntity) {

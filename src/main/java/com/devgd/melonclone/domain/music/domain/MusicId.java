@@ -21,7 +21,6 @@ import lombok.ToString;
 public class MusicId implements Serializable {
 
 	@EqualsAndHashCode.Include
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name = "music_id", nullable = false)
 	private String musicId;
 
