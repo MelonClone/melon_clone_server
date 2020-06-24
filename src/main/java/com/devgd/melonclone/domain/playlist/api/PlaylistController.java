@@ -1,5 +1,7 @@
 package com.devgd.melonclone.domain.playlist.api;
 
+import java.util.List;
+
 import com.devgd.melonclone.domain.playlist.application.PlaylistService;
 import com.devgd.melonclone.domain.playlist.dto.PlaylistDto;
 import com.devgd.melonclone.domain.user.dto.UserDto;
@@ -33,8 +35,11 @@ public class PlaylistController {
 	}
 
 	@GetMapping()
-	public String getPlaylists() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
+	public List<PlaylistDto> getPlaylists(
+		Authentication authentication) {
+		UserDto userDto = (UserDto)authentication.getPrincipal();
+		List<PlaylistDto> playlists = playlistService.getUserPlaylists(userDto);
+		return playlists;
 	}
 
 	@GetMapping(value = "/{list_id}")

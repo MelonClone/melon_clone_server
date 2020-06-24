@@ -1,5 +1,13 @@
 package com.devgd.melonclone.domain.playlist.application;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceUnit;
+
 import com.devgd.melonclone.domain.playlist.dao.PlaylistDao;
 import com.devgd.melonclone.domain.playlist.domain.PlaylistEntity;
 import com.devgd.melonclone.domain.playlist.domain.UserPlaylistEntity;
@@ -35,24 +43,27 @@ public class PlaylistService {
 	// 	// else return artistEntity;
 	// }
 
-	@Transactional
 	public Integer addPlaylist(UserDto userDto, PlaylistDto playlistDto) {
 		UserEntity userEntity = userDao.findById(userDto.getUserId());
 		PlaylistEntity playlistEntity = playlistDto.toEntity();
-		playlistEntity.setPlaylistId(1);
-		// checkAlbumCreateAuth(userDto.getUserId());
-		PlaylistEntity insertedPlaylistEntity = playlistDao.savePlaylist(playlistEntity);
-		System.out.println(userEntity.getUserId());
-		UserPlaylistEntity upe = UserPlaylistEntity.builder()
-		.upId(1)
-			.upUser(userEntity)
-			.upPlaylist(insertedPlaylistEntity)
-			.build();
-		System.out.println(upe.getUpId());
-		System.out.println(upe.getUpUser().getUserId());
-		System.out.println(upe.getUpPlaylist().getPlaylistId());
-		playlistDao.saveUserPlaylist(upe);
+		playlistDao.savePlaylist(playlistEntity);
+		playlistDao.saveUserPlaylist(
+			UserPlaylistEntity.builder()
+				.upUser(userEntity)
+				.upPlaylist(playlistEntity)
+				.build());
 
 		return playlistEntity.getPlaylistId();
+	}
+
+	public List<PlaylistDto> getUserPlaylists(UserDto userDto) {
+		UserEntity userEntity = userDao.findById(userDto.getUserId());
+		List<UserPlaylistEntity> upeList = playlistDao.getAllUsersPlaylist(userEntity);
+
+		ArrayList<PlaylistDto> playlists = new ArrayList<>();
+		for (UserPlaylistEntity upe : upeList) {
+			playlists.add(upe.getUpPlaylist().toDto());
+		}
+		return playlists;
 	}
 }

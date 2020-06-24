@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
+import com.devgd.melonclone.domain.playlist.dto.PlaylistDto;
 import com.devgd.melonclone.domain.playlist.dto.UserPlaylistDto;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
 
@@ -42,13 +43,11 @@ public class UserPlaylistEntity implements Serializable, BaseEntity<UserPlaylist
 	@Column(name = "up_id")
 	private Integer upId;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@MapsId("up_user_id")
+	@ManyToOne
 	@JoinColumn(name = "up_user_id", referencedColumnName = "user_id", nullable = false)
 	private UserEntity upUser;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
-	@MapsId("up_playlist_id")
+	@ManyToOne
 	@JoinColumn(name ="up_playlist_id", referencedColumnName = "playlist_id", nullable = false)
 	private PlaylistEntity upPlaylist;
 
@@ -62,6 +61,10 @@ public class UserPlaylistEntity implements Serializable, BaseEntity<UserPlaylist
 	@Override
 	public UserPlaylistDto toDto() {
 		ModelMapper modelMapper = new ModelMapper();
-		return modelMapper.map(this, UserPlaylistDto.class);
+		UserPlaylistDto userPlaylistDto = modelMapper.map(this, UserPlaylistDto.class);
+		userPlaylistDto.setPlaylistDto(this.upPlaylist.toDto());
+		userPlaylistDto.setUserDto(this.upUser.toDto());
+
+		return userPlaylistDto;
 	}
 }
