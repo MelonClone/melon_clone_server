@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MusicRepository extends JpaRepository<MusicEntity, MusicId> {
 	Optional<MusicEntity> findByMusicId(String musicId);
-	List<MusicEntity> findAllByMusicArtistId(Integer artistId);
-	List<MusicEntity> findAllByMusicAlbumId(Integer albumId);
+	List<MusicEntity> findAllByMusicArtistArtistId(Integer artistId);
+	List<MusicEntity> findAllByMusicAlbumAlbumId(Integer albumId);
 }

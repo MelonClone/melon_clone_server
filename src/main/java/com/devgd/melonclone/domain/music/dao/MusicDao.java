@@ -33,11 +33,11 @@ public class MusicDao {
 	}
 
 	public List<MusicEntity> getMusicsByArtistId(Integer artistId) {
-		return musicRepository.findAllByMusicArtistId(artistId);
+		return musicRepository.findAllByMusicArtistArtistId(artistId);
 	}
 
 	public List<MusicEntity> getMusicsByAlbumId(Integer albumId) {
-		return musicRepository.findAllByMusicAlbumId(albumId);
+		return musicRepository.findAllByMusicAlbumAlbumId(albumId);
 	}
 
 	public boolean deleteMusic(MusicEntity musicEntity) {

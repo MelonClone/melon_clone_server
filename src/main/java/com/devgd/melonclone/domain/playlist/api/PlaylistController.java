@@ -46,8 +46,11 @@ public class PlaylistController {
 	}
 
 	@GetMapping(value = "/{list_id}")
-	public String getPlaylistMusic() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
+	public List<PlaylistMusicDto> getPlaylistMusic(
+		Authentication authentication,
+		@PathVariable(name="list_id") final Integer playlistId) {
+		UserDto userDto = (UserDto)authentication.getPrincipal();
+		return playlistService.getPlaylistMusics(userDto, playlistId);
 	}
 	
 	@PostMapping(value = "/{list_id}/item")
@@ -57,12 +60,18 @@ public class PlaylistController {
 		@RequestBody MusicDto musicDto) {
 		UserDto userDto = (UserDto)authentication.getPrincipal();
 		PlaylistMusicDto playlistMusicDto = playlistService.addPlaylistMusic(userDto, playlistId, musicDto.getMusicId());
-		String resturnMsg = "Added playlist item into " + playlistMusicDto.getPlaylistDto().getPlaylistName();
+		String resturnMsg = "Added playlist item into " + playlistMusicDto.getPlaylistName();
 		return new SuccessResponse(resturnMsg);
 	}
 
 	@DeleteMapping(value = "/{list_id}/item/{item_id}")
-	public String removePlaylistItem() {
-		return "{\"coffee\":{\"name\":\"americano\"}}";
+	public SuccessResponse removePlaylistItem(
+		Authentication authentication,
+		@PathVariable(name="list_id") final Integer playlistId,
+		@PathVariable(name="item_id") final Integer itemId) {
+		UserDto userDto = (UserDto)authentication.getPrincipal();
+		playlistService.deletePlaylistMusic(userDto, playlistId, itemId);
+		String resturnMsg = "Remove playlist item " + itemId + " at playlist id " + playlistId;
+		return new SuccessResponse(resturnMsg);
 	}
 }

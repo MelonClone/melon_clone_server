@@ -17,6 +17,7 @@ public class PlaylistDto implements BaseDto<PlaylistEntity> {
 	private Integer playlistId;
 	private String playlistName;
 	private Integer size;
+	private Integer playtime;
 	
 	@Override
 	public PlaylistEntity toEntity(){
@@ -27,9 +28,11 @@ public class PlaylistDto implements BaseDto<PlaylistEntity> {
 	}
 
 	@Builder
-	public PlaylistDto(Integer playlistId, String playlistName) {
+	public PlaylistDto(Integer playlistId, String playlistName, Integer size, Integer playtime) {
 		this.playlistId = playlistId;
 		this.playlistName = playlistName;
+		this.size = size;
+		this.playtime = playtime;
 	}
 	
 }

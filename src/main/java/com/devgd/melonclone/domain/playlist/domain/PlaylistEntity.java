@@ -37,22 +37,36 @@ public class PlaylistEntity implements Serializable, BaseEntity<PlaylistDto> {
 	private String playlistName;
 	
 	@OneToMany(mappedBy = "upPlaylist", cascade = CascadeType.ALL)
-	private Set<UserPlaylistEntity> userPlaylist;
+	private Set<UserPlaylistEntity> userPlaylists;
 
 	@OneToMany(mappedBy = "pmPlaylist", cascade = CascadeType.ALL)
-	private Set<PlaylistMusicEntity> playlistMusic;
+	private Set<PlaylistMusicEntity> playlistMusics;
 
 	@Builder
-	public PlaylistEntity(Integer playlistId, String playlistName, Set<UserPlaylistEntity> userPlaylist, Set<PlaylistMusicEntity> playlistMusic) {
+	public PlaylistEntity(Integer playlistId, String playlistName, Set<UserPlaylistEntity> userPlaylists, Set<PlaylistMusicEntity> playlistMusics) {
 		this.playlistId = playlistId;
 		this.playlistName = playlistName;
-		this.userPlaylist = userPlaylist;
-		this.playlistMusic = playlistMusic;
+		this.userPlaylists = userPlaylists;
+		this.playlistMusics = playlistMusics;
 	}
 
 	@Override
 	public PlaylistDto toDto() {
 		ModelMapper modelMapper = new ModelMapper();
-		return modelMapper.map(this, PlaylistDto.class);
+		PlaylistDto playtimeDto = modelMapper.map(this, PlaylistDto.class);
+		if (playlistMusics != null) {
+			playtimeDto.setSize(playlistMusics.size());
+			int playtime = 0;
+			for (PlaylistMusicEntity playlistMusic : playlistMusics) {
+				if (playlistMusic.getPmMusic() != null && playlistMusic.getPmMusic().getMusicPlaytime() != null)
+					playtime += playlistMusic.getPmMusic().getMusicPlaytime();
+			}
+			playtimeDto.setPlaytime(playtime);
+		} else {
+			playtimeDto.setSize(0);
+			playtimeDto.setPlaytime(0);
+		}
+
+		return playtimeDto;
 	}
 }

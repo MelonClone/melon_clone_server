@@ -2,7 +2,6 @@ package com.devgd.melonclone.domain.playlist.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,12 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapsId;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
-import com.devgd.melonclone.domain.playlist.dto.PlaylistDto;
 import com.devgd.melonclone.domain.playlist.dto.UserPlaylistDto;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
 

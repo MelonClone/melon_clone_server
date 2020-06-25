@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.devgd.melonclone.domain.album.domain.AlbumEntity;
+import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.model.BaseEntity;
 import com.devgd.melonclone.domain.music.dto.MusicDto;
 
@@ -30,14 +34,19 @@ public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
 	@Column(name = "music_id", nullable = false)
 	private String musicId;
 
-	@Column(name = "music_artist_id", nullable = false)
-	private Integer musicArtistId;
+	@OneToOne
+	@JoinColumn(name ="music_artist_id", referencedColumnName = "artist_id", nullable = false)
+	// @Column(name = "music_artist_id", nullable = false)
+	private ArtistEntity musicArtist;
 
-	@Column(name = "music_album_id", nullable = false)
-	private Integer musicAlbumId;
+	@OneToOne
+	@JoinColumn(name ="music_album_id", referencedColumnName = "album_id", nullable = false)
+	// @Column(name = "music_album_id", nullable = false)
+	private AlbumEntity musicAlbum;
 
-	@Column(name = "music_category_id", nullable = false)
-	private Integer musicCategoryId;
+	@ManyToOne
+	@JoinColumn(name ="music_category_id", referencedColumnName = "category_id", nullable = false)
+	private CategoryEntity musicCategory;
 
 	@Column(name = "music_name", length = 45, nullable = false)
 	private String musicName;
@@ -52,13 +61,16 @@ public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
 	private LocalDateTime createDate;
 
 	@Builder
-	public MusicEntity(String musicId, Integer musicArtistId, Integer musicAlbumId, Integer musicCategoryId,
+	public MusicEntity(String musicId, ArtistEntity musicArtist, AlbumEntity musicAlbum, CategoryEntity musicCategory,
 			String musicName, Integer musicLike, Integer musicPlaytime, 
 			LocalDateTime createDate) {
 		this.musicId = musicId;
 		this.musicName = musicName;
 		this.musicLike = musicLike;
+		this.musicCategory = musicCategory;
 		this.musicPlaytime = musicPlaytime;
+		this.musicArtist = musicArtist;
+		this.musicAlbum = musicAlbum;
 		this.createDate = createDate;
 	}
 
@@ -66,6 +78,10 @@ public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
 	public MusicDto toDto() {
 		ModelMapper modelMapper = new ModelMapper();
 		MusicDto musicDto = modelMapper.map(this, MusicDto.class);
+		musicDto.setMusicArtistName(musicArtist.getArtistName());
+		musicDto.setMusicAlbumName(musicAlbum.getAlbumName());
+		// musicDto.setMusicCategoryName(musicCategoryName);
+		musicDto.setJacket(musicAlbum.getAlbumJacket());
 		return musicDto;
 	}
 }

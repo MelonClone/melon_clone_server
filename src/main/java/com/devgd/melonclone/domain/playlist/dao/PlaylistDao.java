@@ -56,4 +56,13 @@ public class PlaylistDao {
 	public List<PlaylistMusicEntity> getAllPlaylistMusic(PlaylistEntity playlistEntity) {
 		return playlistMusicRepository.findAllByPmPlaylistPlaylistId(playlistEntity.getPlaylistId());
 	}
+
+	public void removePlaylistMusic(PlaylistMusicEntity playlistMusicEntity) {
+		playlistMusicRepository.delete(playlistMusicEntity);
+	}
+
+	public PlaylistMusicEntity getBeforeMusic(PlaylistMusicEntity currentItem) {
+		return playlistMusicRepository.findById(currentItem.getPmOrder())
+			.orElseThrow(() -> new PlaylistNotFoundException(currentItem.getPmPlaylist().getPlaylistId()+""));
+	}
 }

@@ -34,7 +34,7 @@ public class MusicService {
 		ArtistEntity artistEntity = artistDao.getArtistByUserId(userId);
 		if (artistEntity == null) throw new ArtistNotFoundException("user id "+userId);
 		MusicEntity musicEntity = musicDao.getMusic(musicId);
-		if (musicEntity == null || musicEntity.getMusicArtistId() != artistEntity.getArtistId()) return false;
+		if (musicEntity == null || musicEntity.getMusicArtist().getArtistId() != artistEntity.getArtistId()) return false;
 		else return true;
 	}
 
