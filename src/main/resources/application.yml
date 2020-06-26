@@ -1,10 +1,14 @@
+logging:
+  level:
+    root: info
+
 server:
   address: localhost
   port: 8099
 
 spring:
   jpa:
-    show-sql: true
+    show-sql: false
     generate-ddl: true
     # database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
