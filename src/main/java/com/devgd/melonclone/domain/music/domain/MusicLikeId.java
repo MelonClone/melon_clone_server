@@ -16,6 +16,11 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode
 public class MusicLikeId implements Serializable {
 	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 6182701806163873559L;
+
 	@Column(name = "mul_music_id", nullable = false)
 	private String mulMusicId;
 	

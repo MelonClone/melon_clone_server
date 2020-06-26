@@ -14,7 +14,6 @@ import javax.persistence.UniqueConstraint;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
 import com.devgd.melonclone.domain.music.domain.MusicEntity;
-import com.devgd.melonclone.domain.playlist.dto.PlaylistMusicDto;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -33,6 +32,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PlaylistMusicEntity implements Serializable, BaseEntity, Comparable<PlaylistMusicEntity> {
 	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 5388695179589187035L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pm_id", nullable = false)
@@ -57,7 +61,7 @@ public class PlaylistMusicEntity implements Serializable, BaseEntity, Comparable
 		this.pmPlaylist = pmPlaylist;
 		this.pmMusic = pmMusic;
 	}
-	
+
 	@Override
 	public int compareTo(PlaylistMusicEntity target) {
 		if (this.getPmOrder() == null) return 1;

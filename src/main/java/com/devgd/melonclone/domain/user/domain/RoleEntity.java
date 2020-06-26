@@ -21,6 +21,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class RoleEntity implements Serializable {
 	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -2311594643251888760L;
+
 	@Id
 	@Column(name = "role_user_id", nullable = false)
 	private Integer roleUserId;

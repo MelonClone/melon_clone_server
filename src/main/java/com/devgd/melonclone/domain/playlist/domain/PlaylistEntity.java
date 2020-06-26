@@ -13,9 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
-import com.devgd.melonclone.domain.playlist.dto.PlaylistDto;
-
-import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -28,6 +25,11 @@ import lombok.Setter;
 @Table(name = "playlist_table")
 @NoArgsConstructor
 public class PlaylistEntity implements Serializable, BaseEntity {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 3675191177373436211L;
+
 	@Id
 	@Column(name = "playlist_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

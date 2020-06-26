@@ -18,6 +18,11 @@ import lombok.ToString;
 @ToString
 public class MusicId implements Serializable {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -6297977040964262297L;
+
 	@EqualsAndHashCode.Include
 	@Column(name = "music_id", nullable = false)
 	private String musicId;

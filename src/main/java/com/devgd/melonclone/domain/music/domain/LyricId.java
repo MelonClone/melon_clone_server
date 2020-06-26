@@ -15,6 +15,11 @@ import lombok.Setter;
 @EqualsAndHashCode
 public class LyricId implements Serializable {
 	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -1306848696971814629L;
+	
 	private Integer lyricId;
 	private String lyricMusicId;
 

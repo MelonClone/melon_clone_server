@@ -9,9 +9,6 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
-import com.devgd.melonclone.domain.music.dto.LyricDto;
-
-import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +21,11 @@ import lombok.NoArgsConstructor;
 @IdClass(LyricId.class)
 public class LyricEntity implements Serializable, BaseEntity {
 	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -428196415512383288L;
+
 	@Id
 	@Column(name = "lyric_id", nullable = false)
 	private Integer lyricId;

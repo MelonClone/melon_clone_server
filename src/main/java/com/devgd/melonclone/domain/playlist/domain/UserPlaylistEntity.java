@@ -13,10 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
-import com.devgd.melonclone.domain.playlist.dto.UserPlaylistDto;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
-
-import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -35,6 +32,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UserPlaylistEntity implements Serializable, BaseEntity {
 	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -6508652168604647086L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "up_id")

@@ -11,9 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
-import com.devgd.melonclone.domain.music.dto.CategoryDto;
-
-import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -25,6 +22,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategoryEntity implements Serializable, BaseEntity {
 	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -1802903183778283779L;
+
 	@Id
 	@Column(name = "category_id", nullable = false)
 	private Integer categoryId;

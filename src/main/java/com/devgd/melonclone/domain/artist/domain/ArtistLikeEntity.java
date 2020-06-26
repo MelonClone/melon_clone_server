@@ -20,6 +20,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ArtistLikeEntity implements Serializable, BaseEntity {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 3721041290150181051L;
+
 	@EmbeddedId
 	private ArtistLikeId arlId;
 

@@ -15,7 +15,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class ArtistLikeId implements Serializable {
-	
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 6841019327973647425L;
+
 	@Column(name = "arl_artist_id", nullable = false)
 	private Integer arlArtistId;
 	

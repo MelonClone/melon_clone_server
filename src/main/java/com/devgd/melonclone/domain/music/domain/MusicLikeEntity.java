@@ -20,6 +20,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MusicLikeEntity implements Serializable, BaseEntity {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -6350251873653860782L;
+
 	@EmbeddedId
 	private MusicLikeId mulId;
 

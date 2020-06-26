@@ -14,9 +14,6 @@ import javax.persistence.Table;
 import com.devgd.melonclone.domain.album.domain.AlbumEntity;
 import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.model.BaseEntity;
-import com.devgd.melonclone.domain.music.dto.MusicDto;
-
-import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +26,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class MusicEntity implements Serializable, BaseEntity {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1135839701168469671L;
 
 	@Id
 	@Column(name = "music_id", nullable = false)

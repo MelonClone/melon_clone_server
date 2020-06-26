@@ -28,6 +28,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserEntity implements Serializable, BaseEntity {
 	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 6041965711529517253L;
+
 	@Id
 	@Column(name = "user_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)

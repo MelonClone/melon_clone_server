@@ -12,11 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.devgd.melonclone.domain.album.dto.AlbumDto;
 import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.model.BaseEntity;
-
-import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +26,12 @@ import lombok.Setter;
 @Table(name = "album_table")
 @NoArgsConstructor
 public class AlbumEntity implements Serializable, BaseEntity {
+	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -9046791921426268601L;
+
 	@Id
 	@Column(name = "album_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
