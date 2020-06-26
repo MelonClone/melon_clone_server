@@ -18,7 +18,7 @@ public class RoleService {
 	@Transactional
 	public boolean changeRole(Integer userId, Role role) {
 		UserEntity userEntity = userDao.findById(userId);
-		UserDto userDto = userEntity.toDto();
+		UserDto userDto = new UserDto().parse(userEntity);
 		userDto.setRole(role);
 		userDao.saveRole(userDto);
 		return true;

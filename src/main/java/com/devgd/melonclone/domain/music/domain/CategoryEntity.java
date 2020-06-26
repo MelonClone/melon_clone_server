@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "category_table")
 @NoArgsConstructor
-public class CategoryEntity implements Serializable, BaseEntity<CategoryDto> {
+public class CategoryEntity implements Serializable, BaseEntity {
 	
 	@Id
 	@Column(name = "category_id", nullable = false)
@@ -40,12 +40,5 @@ public class CategoryEntity implements Serializable, BaseEntity<CategoryDto> {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.musicList = musicList;
-	}
-
-	@Override
-	public CategoryDto toDto() {
-		ModelMapper modelMapper = new ModelMapper();
-		CategoryDto categoryDto = modelMapper.map(this, CategoryDto.class);
-		return categoryDto;
 	}
 }

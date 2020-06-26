@@ -28,7 +28,7 @@ import lombok.ToString;
 @Table(name = "music_table")
 @NoArgsConstructor
 @ToString
-public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
+public class MusicEntity implements Serializable, BaseEntity {
 
 	@Id
 	@Column(name = "music_id", nullable = false)
@@ -72,16 +72,5 @@ public class MusicEntity implements Serializable, BaseEntity<MusicDto> {
 		this.musicArtist = musicArtist;
 		this.musicAlbum = musicAlbum;
 		this.createDate = createDate;
-	}
-
-	@Override
-	public MusicDto toDto() {
-		ModelMapper modelMapper = new ModelMapper();
-		MusicDto musicDto = modelMapper.map(this, MusicDto.class);
-		musicDto.setMusicArtistName(musicArtist.getArtistName());
-		musicDto.setMusicAlbumName(musicAlbum.getAlbumName());
-		// musicDto.setMusicCategoryName(musicCategoryName);
-		musicDto.setJacket(musicAlbum.getAlbumJacket());
-		return musicDto;
 	}
 }

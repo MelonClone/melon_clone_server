@@ -55,7 +55,7 @@ public class PlaylistService {
 
 		ArrayList<PlaylistDto> playlists = new ArrayList<>();
 		for (UserPlaylistEntity upe : upeList) {
-			playlists.add(upe.getUpPlaylist().toDto());
+			playlists.add(new PlaylistDto().parse(upe.getUpPlaylist()));
 		}
 		return playlists;
 	}
@@ -78,7 +78,7 @@ public class PlaylistService {
 			.build();
 		playlistDao.savePlaylistMusic(playlistMusicEntity);
 
-		return playlistMusicEntity.toDto();
+		return new PlaylistMusicDto().parse(playlistMusicEntity);
 	}
 
 	public void deletePlaylistMusic(UserDto userDto, Integer playlistId, Integer itemId) {
@@ -101,7 +101,7 @@ public class PlaylistService {
 		
 		ArrayList<PlaylistMusicDto> playlistMusics = new ArrayList<>();
 		for (PlaylistMusicEntity pme : playlistMusicEntityList) {
-			playlistMusics.add(pme.toDto());
+			playlistMusics.add(new PlaylistMusicDto().parse(pme));
 		}
 
 		return playlistMusics;

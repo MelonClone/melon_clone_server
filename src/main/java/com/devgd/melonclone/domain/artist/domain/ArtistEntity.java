@@ -32,7 +32,7 @@ import lombok.ToString;
 @Table(name = "artist_table")
 @ToString
 @NoArgsConstructor
-public class ArtistEntity implements Serializable, BaseEntity<ArtistDto> {
+public class ArtistEntity implements Serializable, BaseEntity {
 	@Id
 	@Column(name = "artist_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -66,11 +66,5 @@ public class ArtistEntity implements Serializable, BaseEntity<ArtistDto> {
 		this.artistDesc = artistDesc;
 		this.createDate = createDate;
 		this.artistUser = artistUser;
-	}
-
-	@Override
-	public ArtistDto toDto() {
-		ModelMapper modelMapper = new ModelMapper();
-		return modelMapper.map(this, ArtistDto.class);
 	}
 }

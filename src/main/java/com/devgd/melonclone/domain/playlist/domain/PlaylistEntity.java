@@ -27,7 +27,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "playlist_table")
 @NoArgsConstructor
-public class PlaylistEntity implements Serializable, BaseEntity<PlaylistDto> {
+public class PlaylistEntity implements Serializable, BaseEntity {
 	@Id
 	@Column(name = "playlist_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -48,25 +48,5 @@ public class PlaylistEntity implements Serializable, BaseEntity<PlaylistDto> {
 		this.playlistName = playlistName;
 		this.userPlaylists = userPlaylists;
 		this.playlistMusics = playlistMusics;
-	}
-
-	@Override
-	public PlaylistDto toDto() {
-		ModelMapper modelMapper = new ModelMapper();
-		PlaylistDto playtimeDto = modelMapper.map(this, PlaylistDto.class);
-		if (playlistMusics != null) {
-			playtimeDto.setSize(playlistMusics.size());
-			int playtime = 0;
-			for (PlaylistMusicEntity playlistMusic : playlistMusics) {
-				if (playlistMusic.getPmMusic() != null && playlistMusic.getPmMusic().getMusicPlaytime() != null)
-					playtime += playlistMusic.getPmMusic().getMusicPlaytime();
-			}
-			playtimeDto.setPlaytime(playtime);
-		} else {
-			playtimeDto.setSize(0);
-			playtimeDto.setPlaytime(0);
-		}
-
-		return playtimeDto;
 	}
 }

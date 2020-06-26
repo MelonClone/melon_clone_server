@@ -3,6 +3,7 @@ package com.devgd.melonclone.domain.playlist.dto;
 import com.devgd.melonclone.domain.model.BaseDto;
 import com.devgd.melonclone.domain.playlist.domain.UserPlaylistEntity;
 import com.devgd.melonclone.domain.user.dto.UserDto;
+import com.devgd.melonclone.global.common.util.ModelMapperUtils;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -35,4 +36,12 @@ public class UserPlaylistDto implements BaseDto<UserPlaylistEntity> {
 		this.playlistDto = playlistDto;
 	}
 	
+	@Override
+	public UserPlaylistDto parse(UserPlaylistEntity userPlaylistEntity) {
+		ModelMapperUtils.getModelMapper().map(userPlaylistEntity, this);
+		this.setPlaylistDto(new PlaylistDto().parse(userPlaylistEntity.getUpPlaylist()));
+		this.setUserDto(new UserDto().parse(userPlaylistEntity.getUpUser()));
+
+		return this;
+	}
 }

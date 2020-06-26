@@ -53,7 +53,7 @@ public class MusicService {
 	}
 
 	public MusicDto getMusic(String musicId) {
-		return musicDao.getMusic(musicId).toDto();
+		return new MusicDto().parse(musicDao.getMusic(musicId));
 	}
 
 	public List<MusicDto> getMusicsByArtistId(Integer artistId) {
@@ -61,7 +61,7 @@ public class MusicService {
 		List<MusicDto> musicDtoList = new ArrayList<>();
 		for (int i=0; i<musicEntityList.size(); i++) {
 			MusicEntity musicEntity = musicEntityList.get(i);
-			musicDtoList.add(musicEntity.toDto());
+			musicDtoList.add(new MusicDto().parse(musicEntity));
 		}
 
 		return musicDtoList;
@@ -72,7 +72,7 @@ public class MusicService {
 		List<MusicDto> musicDtoList = new ArrayList<>();
 		for (int i=0; i<musicEntityList.size(); i++) {
 			MusicEntity musicEntity = musicEntityList.get(i);
-			musicDtoList.add(musicEntity.toDto());
+			musicDtoList.add(new MusicDto().parse(musicEntity));
 		}
 
 		return musicDtoList;
@@ -95,7 +95,7 @@ public class MusicService {
 		List<LyricDto> lyricDtoList = new ArrayList<>();
 		for (int i=0; i<lyricEntityList.size(); i++) {
 			LyricEntity lyricEntity = lyricEntityList.get(i);
-			lyricDtoList.add(lyricEntity.toDto());
+			lyricDtoList.add(new LyricDto().parse(lyricEntity));
 		}
 
 		return lyricDtoList;

@@ -33,7 +33,7 @@ import lombok.Setter;
 		)
 	})
 @NoArgsConstructor
-public class UserPlaylistEntity implements Serializable, BaseEntity<UserPlaylistDto> {
+public class UserPlaylistEntity implements Serializable, BaseEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,15 +53,5 @@ public class UserPlaylistEntity implements Serializable, BaseEntity<UserPlaylist
 		this.upId = upId;
 		this.upUser = upUser;
 		this.upPlaylist = upPlaylist;
-	}
-
-	@Override
-	public UserPlaylistDto toDto() {
-		ModelMapper modelMapper = new ModelMapper();
-		UserPlaylistDto userPlaylistDto = modelMapper.map(this, UserPlaylistDto.class);
-		userPlaylistDto.setPlaylistDto(this.upPlaylist.toDto());
-		userPlaylistDto.setUserDto(this.upUser.toDto());
-
-		return userPlaylistDto;
 	}
 }

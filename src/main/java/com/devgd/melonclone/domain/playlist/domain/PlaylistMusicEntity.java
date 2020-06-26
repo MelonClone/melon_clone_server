@@ -31,7 +31,7 @@ import lombok.Setter;
 		)
 	})
 @NoArgsConstructor
-public class PlaylistMusicEntity implements Serializable, BaseEntity<PlaylistMusicDto>, Comparable<PlaylistMusicEntity> {
+public class PlaylistMusicEntity implements Serializable, BaseEntity, Comparable<PlaylistMusicEntity> {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -57,29 +57,7 @@ public class PlaylistMusicEntity implements Serializable, BaseEntity<PlaylistMus
 		this.pmPlaylist = pmPlaylist;
 		this.pmMusic = pmMusic;
 	}
-
-	@Override
-	public PlaylistMusicDto toDto() {
-		PlaylistMusicDto playlistMusicDto = new PlaylistMusicDto(
-			pmId,
-			pmOrder,
-			pmPlaylist.getPlaylistId(),
-			pmPlaylist.getPlaylistName(),
-			pmMusic.getMusicId(),
-			pmMusic.getMusicName(),
-			pmMusic.getMusicAlbum().getAlbumId(),
-			pmMusic.getMusicAlbum().getAlbumName(),
-			pmMusic.getMusicArtist().getArtistId(),
-			pmMusic.getMusicArtist().getArtistName(),
-			pmMusic.getMusicAlbum().getAlbumJacket()
-		);
-		// playlistMusicDto.setItemId(pmId);
-		// playlistMusicDto.setOrder(order);
-		// playlistMusicDto.setPlaylistDto(pmPlaylist.toDto());
-		// playlistMusicDto.setMusicDto(pmMusic.toDto());
-		return playlistMusicDto;
-	}
-
+	
 	@Override
 	public int compareTo(PlaylistMusicEntity target) {
 		if (this.getPmOrder() == null) return 1;

@@ -9,6 +9,7 @@ import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.model.BaseDto;
 import com.devgd.melonclone.domain.music.domain.CategoryEntity;
 import com.devgd.melonclone.domain.music.domain.MusicEntity;
+import com.devgd.melonclone.global.common.util.ModelMapperUtils;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -35,6 +36,22 @@ public class MusicDto implements BaseDto<MusicEntity> {
 	private String jacket;
 	private List<LyricDto> musicLyrics;
 	private LocalDateTime createDate = LocalDateTime.now();
+	
+	@Builder
+	public MusicDto(String musicId, String musicName, Integer musicArtistId, Integer musicAlbumId, 
+		Integer musicCategoryId, String musicCategoryName, Integer musicLike, 
+		Integer musicPlaytime, List<LyricDto> musicLyrics, LocalDateTime createDate) {
+		this.musicId = musicId;
+		this.musicName = musicName;
+		this.musicArtistId = musicArtistId;
+		this.musicAlbumId = musicAlbumId;
+		this.musicCategoryId = musicCategoryId;
+		this.musicCategoryName = musicCategoryName;
+		this.musicLike = musicLike;
+		this.musicPlaytime = musicPlaytime;
+		this.musicLyrics = musicLyrics;
+		this.createDate = createDate;
+	}
 
 	public String getMusicId() {
 		return musicId != null ? musicId : ""+musicArtistId+"."+musicAlbumId+"."+new Date().getTime();
@@ -62,20 +79,14 @@ public class MusicDto implements BaseDto<MusicEntity> {
 			.createDate(createDate)
 			.build();
 	}
-	
-	@Builder
-	public MusicDto(String musicId, String musicName, Integer musicArtistId, Integer musicAlbumId, 
-		Integer musicCategoryId, String musicCategoryName, Integer musicLike, 
-		Integer musicPlaytime, List<LyricDto> musicLyrics, LocalDateTime createDate) {
-		this.musicId = musicId;
-		this.musicName = musicName;
-		this.musicArtistId = musicArtistId;
-		this.musicAlbumId = musicAlbumId;
-		this.musicCategoryId = musicCategoryId;
-		this.musicCategoryName = musicCategoryName;
-		this.musicLike = musicLike;
-		this.musicPlaytime = musicPlaytime;
-		this.musicLyrics = musicLyrics;
-		this.createDate = createDate;
+
+	@Override
+	public MusicDto parse(MusicEntity musicEntity) {
+		ModelMapperUtils.getModelMapper().map(musicEntity, this);
+		this.setMusicArtistName(musicEntity.getMusicArtist().getArtistName());
+		this.setMusicAlbumName(musicEntity.getMusicAlbum().getAlbumName());
+		// musicDto.setMusicCategoryName(musicCategoryName);
+		this.setJacket(musicEntity.getMusicAlbum().getAlbumJacket());
+		return this;
 	}
 }

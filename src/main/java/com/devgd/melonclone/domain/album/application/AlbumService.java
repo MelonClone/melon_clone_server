@@ -52,7 +52,7 @@ public class AlbumService {
 	}
 
 	public AlbumDto getAlbum(Integer albumId) {
-		return albumDao.getAlbum(albumId).toDto();
+		return new AlbumDto().parse(albumDao.getAlbum(albumId));
 	}
 
 	public List<AlbumDto> getAlbumsByArtistId(Integer artistId) {
@@ -60,7 +60,7 @@ public class AlbumService {
 		List<AlbumDto> albumDtoList = new ArrayList<>();
 		for (int i=0; i<albumEntityList.size(); i++) {
 			AlbumEntity albumEntity = albumEntityList.get(i);
-			albumDtoList.add(albumEntity.toDto());
+			albumDtoList.add(new AlbumDto().parse(albumEntity));
 		}
 
 		return albumDtoList;

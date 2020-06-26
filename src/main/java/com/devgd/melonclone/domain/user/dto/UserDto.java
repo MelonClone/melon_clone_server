@@ -7,6 +7,7 @@ import com.devgd.melonclone.domain.model.Role;
 import com.devgd.melonclone.domain.user.domain.RoleEntity;
 import com.devgd.melonclone.domain.user.domain.UserEntity;
 import com.devgd.melonclone.domain.user.domain.UserEntity.UserEntityBuilder;
+import com.devgd.melonclone.global.common.util.ModelMapperUtils;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -29,6 +30,13 @@ public class UserDto implements BaseDto<UserEntity> {
 	private Boolean activate = true;
 	private LocalDateTime disableDate;
 
+	@Builder
+	public UserDto(Integer userId, String email, String password) {
+		this.userId = userId;
+		this.email = email;
+		this.password = password;
+	}
+
 	@Override
 	public UserEntity toEntity(){
 		UserEntityBuilder userEntityBuilder = UserEntity.builder()
@@ -50,10 +58,12 @@ public class UserDto implements BaseDto<UserEntity> {
 		return userEntityBuilder.build();
 	}
 
-	@Builder
-	public UserDto(Integer userId, String email, String password) {
-		this.userId = userId;
-		this.email = email;
-		this.password = password;
+	@Override
+	public UserDto parse(UserEntity userEntity) {
+		ModelMapperUtils.getModelMapper().map(userEntity, this);
+		Role userRole = userEntity.getRole() != null ? Role.valueOf(userEntity.getRole().getRoleName()) : Role.MEMBER;
+		this.setRole(userRole);
+
+		return this;
 	}
 }

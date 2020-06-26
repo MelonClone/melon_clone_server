@@ -28,7 +28,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "album_table")
 @NoArgsConstructor
-public class AlbumEntity implements Serializable, BaseEntity<AlbumDto> {
+public class AlbumEntity implements Serializable, BaseEntity {
 	@Id
 	@Column(name = "album_id")
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -64,11 +64,5 @@ public class AlbumEntity implements Serializable, BaseEntity<AlbumDto> {
 		this.albumCategoryId = albumCategoryId;
 		this.createDate = createDate;
 		this.albumArtist = albumArtist;
-	}
-
-	@Override
-	public AlbumDto toDto() {
-		ModelMapper modelMapper = new ModelMapper();
-		return modelMapper.map(this, AlbumDto.class);
 	}
 }

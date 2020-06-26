@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "lyric_table")
 @NoArgsConstructor
 @IdClass(LyricId.class)
-public class LyricEntity implements Serializable, BaseEntity<LyricDto> {
+public class LyricEntity implements Serializable, BaseEntity {
 	
 	@Id
 	@Column(name = "lyric_id", nullable = false)
@@ -45,12 +45,5 @@ public class LyricEntity implements Serializable, BaseEntity<LyricDto> {
 		this.lyricMusicId = lyricMusicId;
 		this.lyricTime = lyricTime;
 		this.lyricTxt = lyricTxt;
-	}
-
-	@Override
-	public LyricDto toDto() {
-		ModelMapper modelMapper = new ModelMapper();
-		LyricDto lyricDto = modelMapper.map(this, LyricDto.class);
-		return lyricDto;
 	}
 }

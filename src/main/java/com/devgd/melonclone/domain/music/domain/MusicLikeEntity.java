@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.model.BaseEntity;
-import com.devgd.melonclone.domain.music.dto.MusicLikeDto;
-
-import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -21,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "music_like_table")
 @NoArgsConstructor
-public class MusicLikeEntity implements Serializable, BaseEntity<MusicLikeDto> {
+public class MusicLikeEntity implements Serializable, BaseEntity {
 
 	@EmbeddedId
 	private MusicLikeId mulId;
@@ -37,17 +34,6 @@ public class MusicLikeEntity implements Serializable, BaseEntity<MusicLikeDto> {
 	public MusicLikeEntity(MusicLikeId mulId, LocalDateTime likeTime) {
 		this.mulId = mulId;
 		this.likeTime = likeTime;
-	}
-
-	@Override
-	public MusicLikeDto toDto() {
-		ModelMapper modelMapper = new ModelMapper();
-		MusicLikeDto userDto = modelMapper.map(this, MusicLikeDto.class);
-		userDto.setMusicId(mulId.getMulMusicId());
-		userDto.setUserId(mulId.getMulUserId());
-		userDto.setLikeTime(likeTime);
-
-		return userDto;
 	}
 	
 }

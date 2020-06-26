@@ -16,11 +16,7 @@ import javax.persistence.Table;
 
 import com.devgd.melonclone.domain.artist.domain.ArtistEntity;
 import com.devgd.melonclone.domain.model.BaseEntity;
-import com.devgd.melonclone.domain.model.Role;
 import com.devgd.melonclone.domain.playlist.domain.UserPlaylistEntity;
-import com.devgd.melonclone.domain.user.dto.UserDto;
-
-import org.modelmapper.ModelMapper;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +26,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "user_table")
 @NoArgsConstructor
-public class UserEntity implements Serializable, BaseEntity<UserDto> {
+public class UserEntity implements Serializable, BaseEntity {
 	
 	@Id
 	@Column(name = "user_id")
@@ -83,15 +79,5 @@ public class UserEntity implements Serializable, BaseEntity<UserDto> {
 		this.role = role;
 		this.artist = artist;
 		this.userPlaylist = userPlaylist;
-	}
-
-	@Override
-	public UserDto toDto() {
-		ModelMapper modelMapper = new ModelMapper();
-		UserDto userDto = modelMapper.map(this, UserDto.class);
-		Role userRole = this.role != null ? Role.valueOf(this.role.getRoleName()) : Role.MEMBER;
-		userDto.setRole(userRole);
-
-		return userDto;
 	}
 }

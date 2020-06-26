@@ -35,12 +35,12 @@ public class ArtistService {
 	}
 
 	public ArtistDto getArtist(Integer artistId) {
-		return artistDao.getArtist(artistId).toDto();
+		return new ArtistDto().parse(artistDao.getArtist(artistId));
 	}
 
 	public boolean updateArtist(Integer userId, ArtistDto artistDto) {
 		ArtistEntity originArtist = artistDao.getArtist(artistDto.getArtistId());
-		ArtistDto originArtistDto = originArtist.toDto();
+		ArtistDto originArtistDto = new ArtistDto().parse(originArtist);
 		if (userId != originArtistDto.getArtistUserId()) throw new ArtistPermissionException();
 		
 		if (artistDto.getArtistName() != null) originArtistDto.setArtistName(artistDto.getArtistName());

@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.devgd.melonclone.domain.album.domain.AlbumEntity;
 import com.devgd.melonclone.domain.model.BaseDto;
+import com.devgd.melonclone.global.common.util.ModelMapperUtils;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -23,18 +24,6 @@ public class AlbumDto implements BaseDto<AlbumEntity> {
 	private String albumJacket = "http://default.img";
 	private Integer albumCategoryId;
 	private LocalDateTime createDate = LocalDateTime.now();
-	
-	@Override
-	public AlbumEntity toEntity(){
-		return AlbumEntity.builder()
-			.albumId(albumId)
-			.albumName(albumName)
-			.albumLike(albumLike)
-			.albumJacket(albumJacket)
-			.albumCategoryId(albumCategoryId)
-			.createDate(createDate)
-			.build();
-	}
 
 	@Builder
 	public AlbumDto(Integer albumId, Integer albumArtistId, String albumName, 
@@ -48,4 +37,21 @@ public class AlbumDto implements BaseDto<AlbumEntity> {
 		this.createDate = createDate;
 	}
 	
+	@Override
+	public AlbumEntity toEntity(){
+		return AlbumEntity.builder()
+			.albumId(albumId)
+			.albumName(albumName)
+			.albumLike(albumLike)
+			.albumJacket(albumJacket)
+			.albumCategoryId(albumCategoryId)
+			.createDate(createDate)
+			.build();
+	}
+
+	@Override
+	public AlbumDto parse(AlbumEntity albumEntity) {
+		ModelMapperUtils.getModelMapper().map(albumEntity, this);
+		return this;
+	}
 }

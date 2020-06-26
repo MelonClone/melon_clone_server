@@ -33,7 +33,7 @@ public class UserService {
 		if (!passwordEncoder.matches(password, user.getPassword())) {
 			throw new UserVerifyException();
 		}
-		return user.toDto();
+		return new UserDto().parse(user);
 	}
 
 	public void updateLastLogin(UserDto userDto) {
@@ -42,16 +42,16 @@ public class UserService {
 	}
 
 	public UserDto getUserByUsername(String userEmail) {
-		return userDao.findByEmail(userEmail).toDto();
+		return new UserDto().parse(userDao.findByEmail(userEmail));
 	}
 
 	public UserDto getUserById(Integer userId) {
-		return userDao.findById(userId).toDto();
+		return new UserDto().parse(userDao.findById(userId));
 	}
 
 	public void disableUser(Integer userId) {
 		UserEntity userEntity = userDao.findById(userId);
-		UserDto userDto = userEntity.toDto();
+		UserDto userDto = new UserDto().parse(userEntity);
 		userDto.setActivate(false);
 		userDto.setDisableDate(LocalDateTime.now());
 		userDao.save(userDto);

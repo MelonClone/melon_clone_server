@@ -30,22 +30,6 @@ public class PlaylistMusicDto implements BaseDto<PlaylistMusicEntity> {
 
 	// private PlaylistDto playlistDto;
 	// private MusicDto musicDto;
-	
-	@Override
-	public PlaylistMusicEntity toEntity(){
-		return PlaylistMusicEntity.builder()
-			.pmId(itemId)
-			.order(order)
-			.pmPlaylist(PlaylistEntity.builder()
-				.playlistId(playlistId)
-				.build()
-			)
-			.pmMusic(MusicEntity.builder()
-				.musicId(musicId)
-				.build()
-			)
-			.build();
-	}
 
 	@Builder
 	public PlaylistMusicDto(Integer pmId, Integer order, Integer playlistId, 
@@ -65,4 +49,42 @@ public class PlaylistMusicDto implements BaseDto<PlaylistMusicEntity> {
 
 	}
 	
+	@Override
+	public PlaylistMusicEntity toEntity(){
+		return PlaylistMusicEntity.builder()
+			.pmId(itemId)
+			.order(order)
+			.pmPlaylist(PlaylistEntity.builder()
+				.playlistId(playlistId)
+				.build()
+			)
+			.pmMusic(MusicEntity.builder()
+				.musicId(musicId)
+				.build()
+			)
+			.build();
+	}
+
+	@Override
+	public PlaylistMusicDto parse(PlaylistMusicEntity playlistMusicEntity) {
+		PlaylistMusicDto playlistMusicDto = new PlaylistMusicDto(
+			playlistMusicEntity.getPmId(),
+			playlistMusicEntity.getPmOrder(),
+			playlistMusicEntity.getPmPlaylist().getPlaylistId(),
+			playlistMusicEntity.getPmPlaylist().getPlaylistName(),
+			playlistMusicEntity.getPmMusic().getMusicId(),
+			playlistMusicEntity.getPmMusic().getMusicName(),
+			playlistMusicEntity.getPmMusic().getMusicAlbum().getAlbumId(),
+			playlistMusicEntity.getPmMusic().getMusicAlbum().getAlbumName(),
+			playlistMusicEntity.getPmMusic().getMusicArtist().getArtistId(),
+			playlistMusicEntity.getPmMusic().getMusicArtist().getArtistName(),
+			playlistMusicEntity.getPmMusic().getMusicAlbum().getAlbumJacket()
+		);
+		// playlistMusicDto.setItemId(pmId);
+		// playlistMusicDto.setOrder(order);
+		// playlistMusicDto.setPlaylistDto(pmPlaylist.toDto());
+		// playlistMusicDto.setMusicDto(pmMusic.toDto());
+		return playlistMusicDto;
+	}
+
 }
