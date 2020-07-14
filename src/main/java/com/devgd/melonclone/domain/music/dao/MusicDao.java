@@ -64,7 +64,7 @@ public class MusicDao {
 
 	
 	public boolean isLike(String musicId, Integer userId) {
-		return !musicLikeRepository.findByMulIdMulMusicIdAndMulIdMulUserId(musicId, userId).isEmpty();
+		return !musicLikeRepository.findByMulIdMulMusicIdAndMulIdMulUserId(musicId, userId).isPresent();
 	}
 
 	public void addLike(String musicId, Integer userId) {

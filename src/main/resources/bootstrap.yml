@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: melonapi-dev
+#   profiles: # 여기에 지정해도 되고, 실행할 때 지정해도 된다.
+#     active: dev
+  cloud:
+    config:
+      uri: http://localhost:8888

@@ -60,7 +60,7 @@ public class ArtistDao {
 	}
 
 	public boolean isLike(Integer artistId, Integer userId) {
-		return !artistLikeRepository.findByArlIdArlArtistIdAndArlIdArlUserId(artistId, userId).isEmpty();
+		return artistLikeRepository.findByArlIdArlArtistIdAndArlIdArlUserId(artistId, userId).isPresent();
 	}
 
 	public void addLike(Integer artistId, Integer userId) {

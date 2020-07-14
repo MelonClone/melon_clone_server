@@ -1,28 +1,28 @@
-logging:
-  level:
-    root: info
+# logging:
+#   level:
+#     root: info
 
-server:
-  address: localhost
-  port: 8099
+# server:
+#   address: localhost
+#   port: 8099
 
-spring:
-  jpa:
-    show-sql: false
-    generate-ddl: true
-    # database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+# spring:
+#   jpa:
+#     show-sql: false
+#     generate-ddl: true
+#     # database: mysql
+#     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
-  datasource:
-    url: jdbc:mysql://127.0.0.1:3306/melon_clone?serverTimezone=UTC&charaterEncoding=UTF-8
-    username: melon_admin
-    password: melonclone2020
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    platform: mysql
-    initialization-mode: always
+#   datasource:
+#     url: jdbc:mysql://127.0.0.1:3306/melon_clone?serverTimezone=UTC&charaterEncoding=UTF-8
+#     username: melon_admin
+#     password: melonclone2020
+#     driver-class-name: com.mysql.cj.jdbc.Driver
+#     platform: mysql
+#     initialization-mode: always
 
-  jackson:
-    property-naming-strategy: SNAKE_CASE
+#   jackson:
+#     property-naming-strategy: SNAKE_CASE
 
-jwt:
-  secret: aaaaaaaaaaaaaaaaabbbbbbbbbbbbbcc # 32글자 이상의 비밀 키
+# jwt:
+#   secret: aaaaaaaaaaaaaaaaabbbbbbbbbbbbbcc # 32글자 이상의 비밀 키

@@ -53,7 +53,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/v1/artist/{\\d+}/**",
 							"/v1/playlist/{\\d+}/**",
 							"/v1/album/{\\d+}/**",
-							"/v1/music/{\\d+}/**")
+							"/v1/music/{\\w+}/**")
 							.hasAnyRole(Role.MEMBER.name(), Role.ARTIST.name(), Role.ADMIN.name())
 				.antMatchers("/v1/search/{\\d+}/**",
 							"/v1/user/{\\d+}/**")
