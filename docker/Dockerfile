@@ -7,29 +7,23 @@ RUN apt-get upgrade -y
 RUN apt-get install git -y && \
 	apt-get install vim -y 
 
-# SSH Key 설정
-RUN mkdir /root/.ssh/
-COPY ./id_rsa /root/.ssh/id_rsa
-COPY ./id_rsa.pub /root/.ssh/id_rsa.pub
-
-RUN chmod 700 ~/.ssh && \
-	chmod 600 ~/.ssh/id_rsa && \
-	chmod 644 ~/.ssh/id_rsa.pub && \
-	touch /root/.ssh/known_hosts && \
-	ssh-keyscan github.com >> /root/.ssh/known_hosts
-
 # Local time, timezone 지정
 # RUN /bin/cp -f /etc/localtime /etc/localtime.org && \
-	# /bin/cp -f /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+# 	/bin/cp -f /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 
 # 소스 Pull
-WORKDIR /
-RUN mkdir /src
-WORKDIR /src
-RUN git clone git@github.com:gdmail91/melon_clone_server
-WORKDIR ./melon_clone_server
+# RUN mkdir -p /src/app
+# WORKDIR /src/app
+# RUN git clone -b master https://github.com/MelonClone/melon_clone_server.git
+# WORKDIR ./melon_clone_server
+# RUN chmod +x ./gradlew
+# CMD ["./gradlew", "bootRun"]
 
-RUN chmod +x ./gradlew
-RUN ./gradlew build
+# Jar Pull
+RUN mkdir -p /src/app/melon_clone_server
+WORKDIR /src/app/melon_clone_server
+# RUN git clone -b build https://github.com/MelonClone/melon_clone_server.git
+COPY ./melonapi-0.0.1-SNAPSHOT.jar ./melonapi-0.0.1-SNAPSHOT.jar
+ENTRYPOINT ["java", "-jar", "melonapi-0.0.1-SNAPSHOT.jar"]
 
-CMD ["/bin/bash"]
+EXPOSE 22 80 8099

@@ -6,7 +6,7 @@ plugins {
 	// id 'war'
 }
 
-group = 'com.devgd.melonclone'
+group = 'com.devgd.melonapi'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
 
@@ -55,6 +55,10 @@ test {
 	useJUnitPlatform()
 }
 
+// For docker jar
+task copyJar(type: Copy) {
+	from 'build/libs'
+	into 'docker' 
+}
 
-
-	// testImplementation 'org.junit.vintage:junit-vintage-engine'
+build.finalizedBy(copyJar)

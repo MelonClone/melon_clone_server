@@ -55,5 +55,8 @@ out/
 ### VS Code ###
 .vscode/
 
-build/
+### VS Code debug classpath ###
 bin/
+
+### docker import jar ###
+docker/*.jar
